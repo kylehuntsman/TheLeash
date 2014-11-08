@@ -1,3 +1,10 @@
+#region File Information
+/*
+ * 
+ */
+#endregion
+
+#region Using Statements
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +15,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+#endregion
 
 namespace TheLeash
 {
@@ -25,6 +33,7 @@ namespace TheLeash
             Content.RootDirectory = "Content";
         }
 
+        #region Initialize
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -33,11 +42,11 @@ namespace TheLeash
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
+        #endregion
 
+        #region Load Content
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -49,16 +58,20 @@ namespace TheLeash
 
             // TODO: use this.Content to load your game content here
         }
+        #endregion
 
+        #region Unload Content
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            
         }
+        #endregion
 
+        #region Update
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -74,7 +87,9 @@ namespace TheLeash
 
             base.Update(gameTime);
         }
+        #endregion
 
+        #region Draw
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -87,5 +102,6 @@ namespace TheLeash
 
             base.Draw(gameTime);
         }
+        #endregion
     }
 }
