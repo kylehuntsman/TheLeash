@@ -33,43 +33,31 @@ namespace TheLeash
             velocity.X = 0;
             velocity.Y = 0;
 
+            CurrentAnimationName = "standing";
+
             if (dPad.Left == ButtonState.Pressed)
             {
                 velocity.X = -Speed;
+                CurrentAnimationName = "walking";
             }
 
             if (dPad.Right == ButtonState.Pressed)
             {
                 velocity.X = Speed;
+                CurrentAnimationName = "walking";
             }
 
             if (dPad.Up == ButtonState.Pressed)
             {
                 velocity.Y = -Speed;
+                CurrentAnimationName = "walking";
             }
 
             if (dPad.Down == ButtonState.Pressed)
             {
                 velocity.Y = Speed;
+                CurrentAnimationName = "walking";
             }
-
-            /*
-            if (Math.Abs(moveVector.X) > Math.Abs(moveVector.Y))
-            {
-                velocity.X = Speed * (moveVector.X / Math.Abs(moveVector.X));
-                velocity.Y = 0;
-            }
-            else if (Math.Abs(moveVector.X) < Math.Abs(moveVector.Y))
-            {
-                velocity.X = 0;
-                velocity.Y = Speed * (moveVector.Y / Math.Abs(moveVector.Y));
-            }
-            else
-            {
-                velocity.X = 0;
-                velocity.Y = 0;
-            }
-            */
 
             X += velocity.X * (float)(gameTime.ElapsedGameTime.Milliseconds / 200f);
             Y += velocity.Y * (float)(gameTime.ElapsedGameTime.Milliseconds / 200f);

@@ -9,7 +9,7 @@ namespace TheLeash
 {
     class Players
     {
-        public static OldMan OldMan = new OldMan(PlayerIndex.One);
-        public static Dog Dog = new Dog(PlayerIndex.Two);
+        public static OldMan OldMan;
+        public static Dog Dog;
     }
 }
