@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace TheLeash
     {
         private bool alive;
         private Vector2 feelVector = new Vector2();
-
+        private double vibratePercentage;
 
         public OldMan(PlayerIndex index)
             : base(index)
@@ -27,6 +28,8 @@ namespace TheLeash
             {
                 FeelAround();
             }
+
+            GamePad.SetVibration(PlayerIndex, 0f, (float) vibratePercentage * 1f);
         }
 
         public override void Draw(GameTime gameTime)
@@ -39,22 +42,41 @@ namespace TheLeash
             
         }
 
-        public float FeelAround()
+        public void FeelAround()
         {
             Vector2 toDog = new Vector2(Players.Dog.X - X, -1 * (Players.Dog.Y - Y));
-            Vector2 dogLeftNormalDir = new Vector2(-toDog.Y, toDog.X);
-            Vector2 dogRightNormalDir = new Vector2(toDog.Y, -toDog.X);
+            double toDogDirection = GetDirection(toDog);
+            double feelDirection = GetDirection(feelVector);
 
-            double dogDirection = Math.Asin(toDog.Y / toDog.Length());
-            double feelDirection = Math.Asin(feelVector.Y / feelVector.Length());
+            double c = Math.Sqrt((toDog.X - feelVector.X) * (toDog.X - feelVector.X) + (toDog.Y - feelVector.Y) * (toDog.Y - feelVector.Y));
+            double diffRadians = Math.Acos((toDog.LengthSquared() + feelVector.LengthSquared() - c * c) / 2 * toDog.Length() * feelVector.Length());
+            double diffDegrees = 360 * (diffRadians / (2 * Math.PI));
 
-            Console.WriteLine(dogDirection);
-            return 0f;
+
+            if (diffDegrees < 90f)
+            {
+                vibratePercentage = 1 - (diffDegrees / 90);
+            }
+
+            vibratePercentage = 0;
         }
 
-        private double getDirection(Vector2 vector)
+        /// <summary>
+        /// Returns the direction of the vector in degrees, because degrees are easy
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        private double GetDirection(Vector2 vector)
         {
+            double degrees = 0;
+            double radians = Math.Asin(vector.Y / vector.Length());
+            if (radians < 0)
+            {
+                radians = 2 * Math.PI + radians;
+            }
 
+            degrees = 360 * (radians / 2 * Math.PI);
+            return degrees;
         }
     }
 }

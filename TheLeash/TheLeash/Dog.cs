@@ -12,7 +12,6 @@ namespace TheLeash
             : base(index)
         {
             X = 20;
-            Y = 20;
             Speed = 20;
         }
 
