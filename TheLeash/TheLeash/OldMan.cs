@@ -40,11 +40,6 @@ namespace TheLeash
             }
         }
 
-        public override void Draw(GameTime gameTime)
-        {
-            
-        }
-
         public override void Move()
         {
             

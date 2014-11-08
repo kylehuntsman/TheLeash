@@ -22,27 +22,25 @@ namespace TheLeash
         private Point frameSize;
         private Point currentFrame;
         private Point sheetSize;
-        private int collisionOffset;
         private int timeSinceLastFrame = 0;
         private int millisecondsPerFrame;
         private const int DEFAULT_MILLISECONDS_PER_FRAME = 32;
 
-        public Animation(Texture2D textureImage, Point framesize, int collisionOffset, Point currentFrame, Point sheetSize)
-            : this(textureImage, framesize, collisionOffset, currentFrame, sheetSize, DEFAULT_MILLISECONDS_PER_FRAME)
+        public Animation(Texture2D textureImage, Point framesize, Point currentFrame, Point sheetSize)
+            : this(textureImage, framesize, currentFrame, sheetSize, DEFAULT_MILLISECONDS_PER_FRAME)
         {
         }
 
-        public Animation(Texture2D textureImage, Point framesize, int collisionOffset, Point currentFrame, Point sheetSize, int millisecondsPerFrame)
+        public Animation(Texture2D textureImage, Point framesize, Point currentFrame, Point sheetSize, int millisecondsPerFrame)
         {
             this.textureImage = textureImage;
             this.frameSize = framesize;
             this.currentFrame = currentFrame;
             this.sheetSize = sheetSize;
-            this.collisionOffset = collisionOffset;
             this.millisecondsPerFrame = millisecondsPerFrame;
         }
 
-        public virtual void Update(GameTime gameTime, Rectangle clientBounds)
+        public virtual void Update(GameTime gameTime)
         {
             timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
             if (timeSinceLastFrame > millisecondsPerFrame)

@@ -55,6 +55,15 @@ namespace TheLeash
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Animation dogAnim = new Animation(Content.Load<Texture2D>(@"Images/TestImages/TestDog_Anim"), 
+                new Point(32,32), new Point(0,0), new Point(1,2), 100);
+            Players.Dog.AddAnimation("dogAnim", dogAnim);
+            Animation oldManAnim = new Animation(Content.Load<Texture2D>(@"Images/TestImages/TestOldMan_Anim"),
+                new Point(32, 32), new Point(0, 0), new Point(1, 2), 100);
+            Players.OldMan.AddAnimation("oldManAnim", oldManAnim);
+            Players.Dog.CurrentAnimationName = "dogAnim";
+            Players.OldMan.CurrentAnimationName = "oldManAnim";
+            Console.WriteLine("Hey");
 
             // TODO: use this.Content to load your game content here
         }
@@ -100,7 +109,10 @@ namespace TheLeash
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            Players.OldMan.Draw(gameTime, spriteBatch);
+            Players.Dog.Draw(gameTime, spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
