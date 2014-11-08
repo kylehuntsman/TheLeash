@@ -18,15 +18,11 @@ namespace TheLeash
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        VibrationTest vTest;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            vTest = new VibrationTest();
-            //This is a lame comment!
         }
 
         /// <summary>
@@ -77,7 +73,6 @@ namespace TheLeash
             // TODO: Add your update logic here
 
             base.Update(gameTime);
-            vTest.Update(gameTime);
         }
 
         /// <summary>
