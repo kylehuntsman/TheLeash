@@ -10,18 +10,83 @@ namespace TheLeash
     class OldMan : Player
     {
         private bool alive;
-        private Vector2 feelVector = new Vector2();
+
+        private Vector2 feelVector ;
         private double vibratePercentage;
+
+        private Vector2 moveVector;
+        private Vector2 velocity;
 
         public OldMan(PlayerIndex index)
             : base(index)
         {
             Speed = 10;
+            feelVector = new Vector2();
+            moveVector = new Vector2();
+            velocity = new Vector2(0, 0);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            FeelingMechanic();
+            Move(gameTime);
+            Console.WriteLine(X + " " + Y);
+        }
+
+        public override void Move(GameTime gameTime)
+        {
+            moveVector = GamePadState.ThumbSticks.Left;
+            GamePadDPad dPad = GamePadState.DPad;
+
+            velocity.X = 0;
+            velocity.Y = 0;
+
+            if (dPad.Left == ButtonState.Pressed)
+            {
+                velocity.X = -Speed;
+            }
+
+            if (dPad.Right == ButtonState.Pressed)
+            {
+                velocity.X = Speed;
+            }
+
+            if (dPad.Up == ButtonState.Pressed)
+            {
+                velocity.Y = -Speed;
+            }
+
+            if (dPad.Down == ButtonState.Pressed)
+            {
+                velocity.Y = Speed;
+            }
+
+            /*
+            if (Math.Abs(moveVector.X) > Math.Abs(moveVector.Y))
+            {
+                velocity.X = Speed * (moveVector.X / Math.Abs(moveVector.X));
+                velocity.Y = 0;
+            }
+            else if (Math.Abs(moveVector.X) < Math.Abs(moveVector.Y))
+            {
+                velocity.X = 0;
+                velocity.Y = Speed * (moveVector.Y / Math.Abs(moveVector.Y));
+            }
+            else
+            {
+                velocity.X = 0;
+                velocity.Y = 0;
+            }
+            */
+
+            X += velocity.X * (float) (gameTime.ElapsedGameTime.Milliseconds / 200f);
+            Y += velocity.Y * (float) (gameTime.ElapsedGameTime.Milliseconds / 200f);
+        }
+
+        // Feeling Mechanic
+        private void FeelingMechanic()
+        {
             feelVector = GamePadState.ThumbSticks.Right;
             vibratePercentage = 0;
 
@@ -32,7 +97,7 @@ namespace TheLeash
 
             if (vibratePercentage > .8d)
             {
-                GamePad.SetVibration(PlayerIndex, (float) vibratePercentage * 1f, (float) vibratePercentage * 1f);
+                GamePad.SetVibration(PlayerIndex, (float)vibratePercentage * 1f, (float)vibratePercentage * 1f);
             }
             else
             {
@@ -40,12 +105,7 @@ namespace TheLeash
             }
         }
 
-        public override void Move()
-        {
-            
-        }
-
-        public void FeelAround()
+        private void FeelAround()
         {
             Vector2 toDog = new Vector2(Players.Dog.X - X, -1 * (Players.Dog.Y - Y));
             toDog.Normalize();
@@ -66,11 +126,6 @@ namespace TheLeash
             }
         }
 
-        /// <summary>
-        /// Returns the direction of the vector in degrees, because degrees are easy
-        /// </summary>
-        /// <param name="vector"></param>
-        /// <returns></returns>
         private double GetDirection(Vector2 vector)
         {
             double degrees = 0;

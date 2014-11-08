@@ -95,7 +95,7 @@ namespace TheLeash
             }
         }
 
-        public virtual void Move()
+        public virtual void Move(GameTime gameTime)
         {
 
         }
