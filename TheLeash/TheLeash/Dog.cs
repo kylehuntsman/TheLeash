@@ -12,7 +12,8 @@ namespace TheLeash
             : base(index)
         {
             X = 20;
-            Speed = 20;
+            Y = 20;
+            Speed = 5;
         }
 
         public override void Update(GameTime gameTime)

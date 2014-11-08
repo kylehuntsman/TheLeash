@@ -87,6 +87,7 @@ namespace TheLeash
 
             base.Update(gameTime);
             Players.OldMan.Update(gameTime);
+            Players.Dog.Update(gameTime);
         }
         #endregion
 

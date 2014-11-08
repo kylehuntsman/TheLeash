@@ -10,7 +10,7 @@ namespace TheLeash
     class Player
     {
         private float x, y;
-        private int speed;
+        private float speed;
         private Dictionary<string, Animation> animations;
         private string currentAnimation;
 
@@ -29,7 +29,7 @@ namespace TheLeash
             set;
         }
 
-        public int Speed
+        public float Speed
         {
             get;
             set;

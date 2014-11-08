@@ -23,13 +23,21 @@ namespace TheLeash
         {
             base.Update(gameTime);
             feelVector = GamePadState.ThumbSticks.Right;
+            vibratePercentage = 0;
 
-            if (feelVector.Length() > .25f)
+            if (feelVector.Length() > .75f)
             {
                 FeelAround();
             }
 
-            GamePad.SetVibration(PlayerIndex, 0f, (float) vibratePercentage * 1f);
+            if (vibratePercentage > .8d)
+            {
+                GamePad.SetVibration(PlayerIndex, (float) vibratePercentage * 1f, (float) vibratePercentage * 1f);
+            }
+            else
+            {
+                GamePad.SetVibration(PlayerIndex, 0f, (float)vibratePercentage * 1f);
+            }
         }
 
         public override void Draw(GameTime gameTime)
@@ -45,20 +53,22 @@ namespace TheLeash
         public void FeelAround()
         {
             Vector2 toDog = new Vector2(Players.Dog.X - X, -1 * (Players.Dog.Y - Y));
+            toDog.Normalize();
+            feelVector.Normalize();
             double toDogDirection = GetDirection(toDog);
             double feelDirection = GetDirection(feelVector);
 
             double c = Math.Sqrt((toDog.X - feelVector.X) * (toDog.X - feelVector.X) + (toDog.Y - feelVector.Y) * (toDog.Y - feelVector.Y));
-            double diffRadians = Math.Acos((toDog.LengthSquared() + feelVector.LengthSquared() - c * c) / 2 * toDog.Length() * feelVector.Length());
-            double diffDegrees = 360 * (diffRadians / (2 * Math.PI));
+            double numerator = toDog.LengthSquared() + feelVector.LengthSquared() - (c * c);
+            double denominator = 2f * toDog.Length() * feelVector.Length();
+            double value = numerator / denominator;
+            double diffRadians = Math.Acos(Math.Round(value, 6));
+            double diffDegrees = 360d * (diffRadians / (2d * Math.PI));
 
-
-            if (diffDegrees < 90f)
+            if (diffDegrees < 90d)
             {
-                vibratePercentage = 1 - (diffDegrees / 90);
+                vibratePercentage = 1 - (diffDegrees / 90d);
             }
-
-            vibratePercentage = 0;
         }
 
         /// <summary>
