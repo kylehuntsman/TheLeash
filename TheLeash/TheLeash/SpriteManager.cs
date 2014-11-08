@@ -18,7 +18,7 @@ namespace TheLeash
     public class SpriteManager : Microsoft.Xna.Framework.DrawableGameComponent
     {
         SpriteBatch spriteBatch;
-        Sprite player;
+        Animation player;
 
         public SpriteManager(Game game)
             : base(game)
@@ -40,9 +40,8 @@ namespace TheLeash
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
-            player = new Sprite(Game.Content.Load<Texture2D>(@"Images/TestImages/girl"),
-                Vector2.Zero, new Point(125, 125), 10, new Point(0, 0), new Point(4, 4),
-                new Vector2(6, 6));
+            player = new Animation(Game.Content.Load<Texture2D>(@"Images/TestImages/girl"),
+                Vector2.Zero, new Point(125, 125), 10, new Point(0, 0), new Point(4, 4));
             base.LoadContent();
         }
 

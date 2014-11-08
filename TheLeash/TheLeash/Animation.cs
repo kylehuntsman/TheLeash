@@ -16,7 +16,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheLeash
 {
-    class Sprite
+    class Animation
     {
         Texture2D textureImage;
         Point frameSize;
@@ -25,16 +25,15 @@ namespace TheLeash
         int collisionOffset;
         int timeSinceLastFrame = 0;
         int millisecondsPerFrame;
-        const int DEFAULT_MILLISECONDS_PER_FRAME = 60;
-        Vector2 speed;
+        const int DEFAULT_MILLISECONDS_PER_FRAME = 32;
         Vector2 position;
 
-        public Sprite(Texture2D textureImage, Vector2 positon, Point framesize, int collisionOffset, Point currentFrame, Point sheetSize, Vector2 speed)
-            : this(textureImage, positon, framesize, collisionOffset, currentFrame, sheetSize, speed, DEFAULT_MILLISECONDS_PER_FRAME)
+        public Animation(Texture2D textureImage, Vector2 positon, Point framesize, int collisionOffset, Point currentFrame, Point sheetSize)
+            : this(textureImage, positon, framesize, collisionOffset, currentFrame, sheetSize, DEFAULT_MILLISECONDS_PER_FRAME)
         {
         }
 
-        public Sprite(Texture2D textureImage, Vector2 position, Point framesize, int collisionOffset, Point currentFrame, Point sheetSize, Vector2 speed, int millisecondsPerFrame)
+        public Animation(Texture2D textureImage, Vector2 position, Point framesize, int collisionOffset, Point currentFrame, Point sheetSize, int millisecondsPerFrame)
         {
             this.textureImage = textureImage;
             this.frameSize = framesize;
@@ -42,7 +41,6 @@ namespace TheLeash
             this.sheetSize = sheetSize;
             this.collisionOffset = collisionOffset;
             this.millisecondsPerFrame = millisecondsPerFrame;
-            this.speed = speed;
             this.position = position;
         }
 
