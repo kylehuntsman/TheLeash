@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheLeash", "TheLeash\TheLeash\TheLeash.csproj", "{D590EE05-551C-4EA1-9794-F808EE9DB01C}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "TheLeashContent", "TheLeash\TheLeashContent\TheLeashContent.contentproj", "{182CB561-19CB-4653-B3F0-2FE4EF1D2EB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheLeashContent", "TheLeash\TheLeashContent\TheLeashContent.contentproj", "{182CB561-19CB-4653-B3F0-2FE4EF1D2EB1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5868B9D-A9AE-4017-B480-CC654DCE9A7F}"
+	ProjectSection(SolutionItems) = preProject
+		TODO.txt = TODO.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
