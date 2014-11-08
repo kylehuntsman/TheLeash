@@ -77,7 +77,6 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="SpriteManager.cs" />
-    <Compile Include="VibrationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

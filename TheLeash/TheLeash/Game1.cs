@@ -26,7 +26,6 @@ namespace TheLeash
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        VibrationTest vTest;
         SpriteManager spriteManager;
 
         public Game1()
@@ -35,9 +34,6 @@ namespace TheLeash
             Content.RootDirectory = "Content";
             spriteManager = new SpriteManager(this);
             Components.Add(spriteManager);
-
-            vTest = new VibrationTest();
-            //This is a lame comment!
         }
 
         #region Initialize
