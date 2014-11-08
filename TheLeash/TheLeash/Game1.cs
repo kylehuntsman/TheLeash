@@ -89,7 +89,6 @@ namespace TheLeash
             // TODO: Add your update logic here
 
             base.Update(gameTime);
-            vTest.Update(gameTime);
         }
         #endregion
 
