@@ -18,22 +18,21 @@ namespace TheLeash
 {
     class Animation
     {
-        Texture2D textureImage;
-        Point frameSize;
-        Point currentFrame;
-        Point sheetSize;
-        int collisionOffset;
-        int timeSinceLastFrame = 0;
-        int millisecondsPerFrame;
-        const int DEFAULT_MILLISECONDS_PER_FRAME = 32;
-        Vector2 position;
+        private Texture2D textureImage;
+        private Point frameSize;
+        private Point currentFrame;
+        private Point sheetSize;
+        private int collisionOffset;
+        private int timeSinceLastFrame = 0;
+        private int millisecondsPerFrame;
+        private const int DEFAULT_MILLISECONDS_PER_FRAME = 32;
 
-        public Animation(Texture2D textureImage, Vector2 positon, Point framesize, int collisionOffset, Point currentFrame, Point sheetSize)
-            : this(textureImage, positon, framesize, collisionOffset, currentFrame, sheetSize, DEFAULT_MILLISECONDS_PER_FRAME)
+        public Animation(Texture2D textureImage, Point framesize, int collisionOffset, Point currentFrame, Point sheetSize)
+            : this(textureImage, framesize, collisionOffset, currentFrame, sheetSize, DEFAULT_MILLISECONDS_PER_FRAME)
         {
         }
 
-        public Animation(Texture2D textureImage, Vector2 position, Point framesize, int collisionOffset, Point currentFrame, Point sheetSize, int millisecondsPerFrame)
+        public Animation(Texture2D textureImage, Point framesize, int collisionOffset, Point currentFrame, Point sheetSize, int millisecondsPerFrame)
         {
             this.textureImage = textureImage;
             this.frameSize = framesize;
@@ -41,7 +40,6 @@ namespace TheLeash
             this.sheetSize = sheetSize;
             this.collisionOffset = collisionOffset;
             this.millisecondsPerFrame = millisecondsPerFrame;
-            this.position = position;
         }
 
         public virtual void Update(GameTime gameTime, Rectangle clientBounds)
@@ -63,14 +61,34 @@ namespace TheLeash
             }
         }
 
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public Rectangle GetCurrentFrameRectangle()
         {
-            spriteBatch.Draw(textureImage, 
-                position, 
-                new Rectangle(currentFrame.X * frameSize.X, 
-                    currentFrame.Y * frameSize.Y, 
-                    frameSize.X, frameSize.Y),
-                Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+            Rectangle currentFrameRectangle = 
+                new Rectangle(currentFrame.X * frameSize.X,
+                currentFrame.Y * frameSize.Y,
+                frameSize.X, frameSize.Y);
+            return currentFrameRectangle;
+        }
+
+        public Texture2D TextureImage
+        {
+            get
+            {
+                return this.textureImage;
+            }
+        }
+
+        public Point CurrentFrame
+        {
+            get
+            {
+                return this.currentFrame;
+            }
+            set
+            {
+                currentFrame = value;
+                timeSinceLastFrame = 0;
+            }
         }
     }
 }
