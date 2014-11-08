@@ -26,6 +26,7 @@ namespace TheLeash
             Content.RootDirectory = "Content";
 
             vTest = new VibrationTest();
+            //This is a lame comment!
         }
 
         /// <summary>
