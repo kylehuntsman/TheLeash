@@ -32,20 +32,14 @@ namespace TheLeash
 
         public float Speed
         {
-            get;
-            set;
+            get { return this.speed; }
+            set { this.speed = value; }
         }
 
         public string CurrentAnimationName
         {
-            get
-            {
-                return this.currentAnimationName;
-            }
-            set
-            {
-                this.currentAnimationName = value;
-            }
+            get { return this.currentAnimationName; }
+            set { this.currentAnimationName = value;}
         }
 
         public PlayerIndex PlayerIndex
@@ -59,14 +53,18 @@ namespace TheLeash
         }  
 
         public Player(PlayerIndex index)
+            :this(index, 0,0)
         {
-            x = 0;
-            y = 0;
-            speed = 0;
+        }
 
-            playerIndex = index;
-            animations = new Dictionary<string, Animation>();
-            currentAnimationName = "";
+        public Player(PlayerIndex index, float x, float y) 
+        {
+            this.x = x;
+            this.y = y;
+            this.speed = 0;
+            this.playerIndex = index;
+            this.animations = new Dictionary<string, Animation>();
+            this.currentAnimationName = "";
         }
 
         public void AddAnimation(string animationName, Animation animation) 
