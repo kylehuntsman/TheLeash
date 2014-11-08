@@ -25,7 +25,7 @@ namespace TheLeash
         int collisionOffset;
         int timeSinceLastFrame = 0;
         int millisecondsPerFrame;
-        const int DEFAULT_MILLISECONDS_PER_FRAME = 16;
+        const int DEFAULT_MILLISECONDS_PER_FRAME = 60;
         Vector2 speed;
         Vector2 position;
 
