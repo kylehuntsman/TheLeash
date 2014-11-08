@@ -26,14 +26,11 @@ namespace TheLeash
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteManager spriteManager;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            spriteManager = new SpriteManager(this);
-            Components.Add(spriteManager);
         }
 
         #region Initialize

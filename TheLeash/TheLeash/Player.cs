@@ -11,6 +11,8 @@ namespace TheLeash
     {
         private float x, y;
         private int speed;
+        private Dictionary<string, Animation> animations;
+        private string currentAnimation;
 
         private PlayerIndex playerIndex;
         private GamePadState gamePadState;
@@ -50,6 +52,11 @@ namespace TheLeash
             speed = 0;
 
             playerIndex = index;
+        }
+
+        public void AddAnimation(string animationName, Animation animation) 
+        {
+
         }
 
         public virtual void Update(GameTime gameTime)
