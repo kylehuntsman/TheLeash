@@ -12,15 +12,18 @@ namespace TheLeash
         private Vector2 feelVector = new Vector2();
 
 
-        public OldMan(PlayerIndex index) : base(index)
+        public OldMan(PlayerIndex index)
+            : base(index)
         {
             Speed = 10;
         }
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             feelVector = GamePadState.ThumbSticks.Right;
-            if (feelVector.Length() > 50f)
+
+            if (feelVector.Length() > .25f)
             {
                 FeelAround();
             }
@@ -38,10 +41,18 @@ namespace TheLeash
 
         public float FeelAround()
         {
-            
+            Vector2 toDog = new Vector2(Players.Dog.X - X, -1 * (Players.Dog.Y - Y));
+            Vector2 dogLeftNormalDir = new Vector2(-toDog.Y, toDog.X);
+            Vector2 dogRightNormalDir = new Vector2(toDog.Y, -toDog.X);
+
+            double dogDirection = Math.Asin(toDog.Y / toDog.Length());
+            double feelDirection = Math.Asin(feelVector.Y / feelVector.Length());
+
+            Console.WriteLine(dogDirection);
+            return 0f;
         }
 
-        public void OnHit()
+        private double getDirection(Vector2 vector)
         {
 
         }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace TheLeash
 {
-    abstract class Player
+    class Player
     {
         private float x, y;
         private int speed;
@@ -35,14 +35,13 @@ namespace TheLeash
 
         public PlayerIndex PlayerIndex
         {
-            get;
+            get { return playerIndex; }
         }
 
         public GamePadState GamePadState
         {
-            get;
-        }
-         
+            get { return gamePadState; }
+        }  
 
         public Player(PlayerIndex index)
         {
