@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace TheLeash
 {
@@ -14,12 +15,14 @@ namespace TheLeash
         KeyboardState keyboardState;
         Texture2D image;
         CarManager carManager;
+        SoundEffect bgSound;
+        SoundEffectInstance bgSoundInstance;
 
         public PlayScreen(Game game, SpriteBatch spriteBatch)
             : base(game, spriteBatch)
         {
             carManager = new CarManager();
-            Players.OldMan = new OldMan(PlayerIndex.One, 540, 700);
+            Players.OldMan = new OldMan(PlayerIndex.One, 540, 600);
             Players.Dog = new Dog(PlayerIndex.Two, 540, 700);
         }
 
@@ -27,7 +30,8 @@ namespace TheLeash
         {
             Console.WriteLine("Loading Content For PlayScreen");
             this.image = content.Load<Texture2D>("Images/Backgrounds/Level");
-            
+            this.bgSound = content.Load<SoundEffect>(@"Audio/trafAmbi");
+            this.bgSoundInstance = bgSound.CreateInstance();
             carManager.LoadContent(content);
             Players.OldMan.LoadContent(content);
             Players.Dog.LoadContent(content);
@@ -66,6 +70,20 @@ namespace TheLeash
         {
             Players.OldMan.Draw(gameTime, spriteBatch);
             Players.Dog.Draw(gameTime, spriteBatch);
+        }
+
+        public override void Show()
+        {
+            base.Show();
+            bgSoundInstance = bgSound.CreateInstance();
+            bgSound.Play();
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+            bgSoundInstance.Stop();
+            bgSoundInstance.Dispose();
         }
     }
 }

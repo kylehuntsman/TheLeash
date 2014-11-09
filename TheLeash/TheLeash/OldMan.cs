@@ -63,8 +63,8 @@ namespace TheLeash
 
             Players.OldMan.CurrentAnimationName = "standing";
 
-            //dyingSound = content.Load<SoundEffect>(@"Audio/manDying");
-            //whistleSound = content.Load<SoundEffect>(@"Audio/whistle");
+            dyingSound = content.Load<SoundEffect>(@"Audio/manDying");
+            whistleSound = content.Load<SoundEffect>(@"Audio/whistle");
         }
 
         public override void Update(GameTime gameTime)
@@ -244,6 +244,7 @@ namespace TheLeash
         private void Alert()
         {
             SoundEffectInstance whistle = whistleSound.CreateInstance();
+            whistle.Volume = .25f;
             whistle.Play();
             Console.WriteLine("*Whistle* Where's my dog!!!");
         }
