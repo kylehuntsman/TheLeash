@@ -26,7 +26,17 @@ namespace TheLeash
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        CarManager carManager;
+
+        KeyboardState keyboardState;
+        KeyboardState oldKeyboardState;
+        GamePadState gamePadState;
+        GamePadState oldGamePadState;
+
+        GameScreen activeScreen;
+        StartScreen startScreen;
+        InfoScreen infoScreen;
+        CreditScreen creditScreen;
+        PlayScreen playScreen;
 
         public Game1()
         {
@@ -34,7 +44,6 @@ namespace TheLeash
             TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 16);
             graphics.PreferredBackBufferHeight = 720;
             graphics.PreferredBackBufferWidth = 1080;
-            carManager = new CarManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -47,7 +56,6 @@ namespace TheLeash
         /// </summary>
         protected override void Initialize()
         {
-            InitializePlayers();
             base.Initialize();
         }
         #endregion
@@ -65,11 +73,33 @@ namespace TheLeash
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            carManager.LoadContent(Content);
-            Players.OldMan.LoadContent(Content);
-            Players.Dog.LoadContent(Content);
+
+            startScreen = new StartScreen(this,
+                spriteBatch,
+                Content.Load<SpriteFont>("Font/menuFont"),
+                Content.Load<Texture2D>("Images/TestImages/back1"));
+            Components.Add(startScreen);
+            startScreen.Hide();
+
+            playScreen = new PlayScreen(this, spriteBatch,
+                Content.Load<Texture2D>("Images/TestImages/back2"));
+            Components.Add(playScreen);
+            playScreen.Hide();
+
+            
+            infoScreen = new InfoScreen(this, spriteBatch,
+                Content.Load<Texture2D>("Images/TestImages/back2"));
+            Components.Add(infoScreen);
+            infoScreen.Hide();
+
+            creditScreen = new CreditScreen(this, spriteBatch,
+                Content.Load<Texture2D>("Images/TestImages/back2"));
+            Components.Add(creditScreen);
+            creditScreen.Hide();
+
+            activeScreen = startScreen;
+            activeScreen.Show();
         }
         #endregion
 
@@ -92,18 +122,77 @@ namespace TheLeash
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            keyboardState = Keyboard.GetState();
+            gamePadState = GamePad.GetState(PlayerIndex.One);
+
+            HandleStartScreen();
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            if (carManager.CarCount() < 10)
-                carManager.AddCar();
-            carManager.Update(gameTime);
 
             base.Update(gameTime);
-            Players.OldMan.Update(gameTime);
-            Players.Dog.Update(gameTime);
+            oldKeyboardState = keyboardState;
+            oldGamePadState = gamePadState;
         }
         #endregion
+
+        private void HandleStartScreen()
+        {
+            if (activeScreen == startScreen)
+            {
+                if (CheckKey(Keys.Enter) || CheckButton(Buttons.A))
+                {
+                    switch (startScreen.SelectedIndex)
+                    {
+                        case 0:
+                            activeScreen.Hide();
+                            activeScreen = playScreen;
+                            activeScreen.Show();
+                            break;
+                        case 1:
+                            activeScreen.Hide();
+                            activeScreen = infoScreen;
+                            activeScreen.Show();
+                            break;
+                        case 2:
+                            activeScreen.Hide();
+                            activeScreen = creditScreen;
+                            activeScreen.Show();
+                            break;
+                        case 3:
+                            this.Exit();
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                if (CheckKey(Keys.Enter) || CheckButton(Buttons.A))
+                {
+                    activeScreen.Hide();
+                    activeScreen = startScreen;
+                    activeScreen.Show();
+                }
+            }
+
+
+        }
+
+        private void HandlePlayScreen()
+        {
+
+        }
+
+        private bool CheckKey(Keys theKey)
+        {
+            return keyboardState.IsKeyUp(theKey) && oldKeyboardState.IsKeyDown(theKey);
+        }
+
+        private bool CheckButton(Buttons theButton)
+        {
+            return gamePadState.IsButtonUp(theButton) && oldGamePadState.IsButtonDown(theButton);
+        }
 
         #region Draw
         /// <summary>
@@ -115,12 +204,10 @@ namespace TheLeash
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            Players.OldMan.Draw(gameTime, spriteBatch);
-            Players.Dog.Draw(gameTime, spriteBatch);
-            carManager.Draw(gameTime, spriteBatch);
+            base.Draw(gameTime);
             spriteBatch.End();
 
-            base.Draw(gameTime);
+            
         }
         #endregion
     }
