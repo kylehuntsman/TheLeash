@@ -31,6 +31,9 @@ namespace TheLeash
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 16);
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1080;
             carManager = new CarManager(this);
             Content.RootDirectory = "Content";
         }
@@ -119,7 +122,8 @@ namespace TheLeash
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            if (carManager.CarCount() < 10)
+                carManager.AddCar();
             carManager.Update(gameTime);
 
             base.Update(gameTime);

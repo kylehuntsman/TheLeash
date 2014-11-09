@@ -90,5 +90,10 @@ namespace TheLeash
                 speed);
             return newCar;
         }
+
+        public int CarCount()
+        {
+            return cars.Count;
+        }
     }
 }
