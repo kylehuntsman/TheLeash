@@ -16,7 +16,7 @@ namespace TheLeash
         private Dictionary<string, Animation> animations;
         private bool alive;
         private string currentAnimationName;
-
+        private string direction;
         private Rectangle bounds;
 
         private PlayerIndex playerIndex;
@@ -52,6 +52,12 @@ namespace TheLeash
             set { this.currentAnimationName = value;}
         }
 
+        public string Direction
+        {
+            get;
+            set;
+        }
+
         public PlayerIndex PlayerIndex
         {
             get { return playerIndex; }
@@ -82,6 +88,7 @@ namespace TheLeash
             this.alive = true;
             this.animations = new Dictionary<string, Animation>();
             this.currentAnimationName = "";
+            this.direction = "";
         }
 
         public virtual void LoadContent(ContentManager content)
