@@ -67,8 +67,14 @@ namespace TheLeash
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animation.TextureImage, new Vector2(x, y),
-                    animation.GetCurrentFrameRectangle(), Color.White);
+            SpriteEffects effect;
+            if (Speed > 0)
+                effect = SpriteEffects.None;
+            else
+                effect = SpriteEffects.FlipHorizontally;
+            spriteBatch.Draw(animation.TextureImage,
+                new Vector2(x, y), animation.GetCurrentFrameRectangle(), 
+                Color.White, 0, new Vector2(0, 0), 1, effect, 0);
         } 
     }
 }

@@ -42,11 +42,11 @@ namespace TheLeash
         public override void LoadContent(ContentManager content)
         {
             Animation oldManWalking = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestOldMan_Anim"),
-               new Point(19, 32), new Point(0, 0), new Point(1, 2), 100);
+               new Point(19, 32), new Point(0, 0), new Point(1, 2), 200);
             Players.OldMan.AddAnimation("walking", oldManWalking);
 
             Animation oldManStanding = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestOldMan_Anim"),
-               new Point(19, 32), new Point(0, 0), new Point(1, 1), 100);
+               new Point(19, 32), new Point(0, 0), new Point(1, 1), 90000);
             Players.OldMan.AddAnimation("standing", oldManStanding);
 
             Players.OldMan.CurrentAnimationName = "standing";

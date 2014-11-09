@@ -49,7 +49,6 @@ namespace TheLeash
         {
             InitializePlayers();
             base.Initialize();
-            carManager.AddCar(3);
         }
         #endregion
 
