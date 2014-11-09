@@ -21,6 +21,7 @@ namespace TheLeash
         private AudioEmitter emitter;
         private SoundEffect barkSound;
         private SoundEffect growlSound;
+        private SoundEffect wimperSound;
 
         public AudioEmitter Emitter
         {
@@ -58,6 +59,8 @@ namespace TheLeash
             Players.Dog.CurrentAnimationName = "standing";
 
             barkSound = content.Load<SoundEffect>(@"Audio/bark");
+            growlSound = content.Load<SoundEffect>(@"Audio/growl");
+            wimperSound = content.Load<SoundEffect>(@"Audio/dogYelp");
         }
 
         public override void Update(GameTime gameTime)
@@ -204,6 +207,12 @@ namespace TheLeash
 
         private void Growl()
         {
+            Vector2 toOldMan = new Vector2(Players.OldMan.X - X, -1 * (Players.OldMan.Y - Y));
+            float distanceToOldMan = toOldMan.Length();
+
+            SoundEffectInstance growl = growlSound.CreateInstance();
+            growl.Apply3D(Players.OldMan.AudioListener, emitter);
+            growl.Play();
             Console.WriteLine("Grrrrrrrr!");
         }
 
@@ -212,6 +221,13 @@ namespace TheLeash
             base.Hit();
             if (Alive)
             {
+                Vector2 toOldMan = new Vector2(Players.OldMan.X - X, -1 * (Players.OldMan.Y - Y));
+                float distanceToOldMan = toOldMan.Length();
+
+                SoundEffectInstance wimper = wimperSound.CreateInstance();
+                wimper.Apply3D(Players.OldMan.AudioListener, emitter);
+                wimper.Play();
+
                 Console.WriteLine("Dog has died!");
                 CurrentAnimationName = "standing";
                 Alive = false;

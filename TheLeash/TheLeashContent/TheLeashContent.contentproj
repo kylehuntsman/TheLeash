@@ -110,7 +110,7 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-   <ItemGroup>
+  <ItemGroup>
     <Compile Include="Audio\trafAmbi.wav">
       <Name>trafAmbi</Name>
       <Importer>WavImporter</Importer>
@@ -132,6 +132,20 @@
     </Compile>
     <Compile Include="Audio\whistle.wav">
       <Name>whistle</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\dogYelp.wav">
+      <Name>dogYelp</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\growl.wav">
+      <Name>growl</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
