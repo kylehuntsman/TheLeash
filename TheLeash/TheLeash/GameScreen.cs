@@ -35,7 +35,7 @@ namespace TheLeash
             base.Initialize();
         }
 
-        protected virtual void LoadContent(ContentManager content)
+        public virtual void LoadContent(ContentManager content)
         {
             
         }

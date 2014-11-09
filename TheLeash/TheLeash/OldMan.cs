@@ -63,8 +63,8 @@ namespace TheLeash
 
             Players.OldMan.CurrentAnimationName = "standing";
 
-            dyingSound = content.Load<SoundEffect>(@"Audio/manDying");
-            whistleSound = content.Load<SoundEffect>(@"Audio/whistle");
+            //dyingSound = content.Load<SoundEffect>(@"Audio/manDying");
+            //whistleSound = content.Load<SoundEffect>(@"Audio/whistle");
         }
 
         public override void Update(GameTime gameTime)

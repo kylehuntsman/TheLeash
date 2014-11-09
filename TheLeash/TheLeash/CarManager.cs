@@ -16,11 +16,10 @@ namespace TheLeash
         private List<Animation> animations;
         private List<Point> spawnLocations;
         private Random random = new Random();
-        private Rectangle screenBounds;
 
         private SoundEffect soundEffect;
 
-        public CarManager(Game game)
+        public CarManager()
         {
             cars = new List<Car>();
             removedCars = new List<Car>();

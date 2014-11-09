@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -12,15 +13,25 @@ namespace TheLeash
     {
         KeyboardState keyboardState;
         Texture2D image;
-        Rectangle imageRectangle;
+        CarManager carManager;
 
-        public PlayScreen(Game game, SpriteBatch spriteBatch, Texture2D image)
+        public PlayScreen(Game game, SpriteBatch spriteBatch)
             : base(game, spriteBatch)
         {
-            this.image = image;
-            imageRectangle = new Rectangle(
-                0, 0, Game.Window.ClientBounds.Width,
-                Game.Window.ClientBounds.Height);
+            carManager = new CarManager();
+            Players.OldMan = new OldMan(PlayerIndex.One, 540, 700);
+            Players.Dog = new Dog(PlayerIndex.Two, 540, 700);
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            Console.WriteLine("Loading Content For PlayScreen");
+            this.image = content.Load<Texture2D>("Images/Backgrounds/Level");
+            
+            carManager.LoadContent(content);
+            Players.OldMan.LoadContent(content);
+            Players.Dog.LoadContent(content);
+            base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
@@ -28,15 +39,33 @@ namespace TheLeash
             base.Update(gameTime);
 
             keyboardState = Keyboard.GetState();
-
             if (keyboardState.IsKeyDown(Keys.Escape))
                 game.Exit();
+
+            if (carManager.CarCount() < 10)
+            {
+                carManager.AddCar();
+            }
+
+            carManager.Update(gameTime);
+
+            Players.OldMan.Update(gameTime);
+            Players.Dog.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(image, imageRectangle, Color.White);
+            spriteBatch.Draw(image, new Vector2(0,-720), Color.White);
             base.Draw(gameTime);
+
+            carManager.Draw(gameTime, spriteBatch);
+            DrawPlayers(gameTime, spriteBatch);
+        }
+
+        private void DrawPlayers(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            Players.OldMan.Draw(gameTime, spriteBatch);
+            Players.Dog.Draw(gameTime, spriteBatch);
         }
     }
 }
