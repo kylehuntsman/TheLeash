@@ -161,7 +161,7 @@ namespace TheLeash
             Y += velocity.Y * (float)(gameTime.ElapsedGameTime.Milliseconds / 200f);
 
             Bounds = new Rectangle((int)X, (int)Y + 9, 26, 9);
-            emitter.Position = new Vector3(X / 10f, 0, Y / 10f);
+            emitter.Position = new Vector3(X / 8f, 0, Y / 8f);
         }
 
         // Actions
