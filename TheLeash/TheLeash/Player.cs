@@ -14,7 +14,7 @@ namespace TheLeash
         private float x, y;
         private float speed;
         private Dictionary<string, Animation> animations;
-        private bool isAlive;
+        private bool alive;
         private string currentAnimationName;
 
         private Rectangle bounds;
@@ -40,10 +40,10 @@ namespace TheLeash
             set { this.speed = value; }
         }
 
-        public bool IsAlive
+        public bool Alive
         {
-            get { return this.isAlive; }
-            set { isAlive = value; }
+            get { return this.alive; }
+            set { alive = value; }
         }
 
         public string CurrentAnimationName

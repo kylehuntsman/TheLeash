@@ -50,7 +50,7 @@ namespace TheLeash
         {
             base.Update(gameTime);
 
-            if (!IsAlive)
+            if (!Alive)
             {
                 return;
             }
@@ -188,11 +188,11 @@ namespace TheLeash
         public override void Hit()
         {
             base.Hit();
-            if (IsAlive)
+            if (Alive)
             {
                 Console.WriteLine("Dog has died!");
                 CurrentAnimationName = "standing";
-                IsAlive = false;
+                Alive = false;
             }
         }
     }

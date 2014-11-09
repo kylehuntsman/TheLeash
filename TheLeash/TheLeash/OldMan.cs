@@ -15,8 +15,6 @@ namespace TheLeash
         private const double RIGHT_VIB_PENALTY = .02d;
         private const int MAX_DOG_DISTANCE = 64;
 
-        private bool alive;
-
         private Vector2 feelVector;
         private double leftVibPercentage;
         private double rightVibPercentage;
@@ -57,7 +55,7 @@ namespace TheLeash
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (!IsAlive)
+            if (!Alive)
             {
                 return;
             }
@@ -161,7 +159,7 @@ namespace TheLeash
         // Feeling Mechanic
         private void FeelingMechanic()
         {
-            if (!Players.Dog.IsAlive)
+            if (!Players.Dog.Alive)
             {
                 return;
             }
@@ -234,11 +232,11 @@ namespace TheLeash
 
         public override void Hit()
         {
-            if (IsAlive)
+            if (Alive)
             {
                 Console.WriteLine("The old man has died!");
                 CurrentAnimationName = "standing";
-                IsAlive = false;
+                Alive = false;
             }
         }
 
