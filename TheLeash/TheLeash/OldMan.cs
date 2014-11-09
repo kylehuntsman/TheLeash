@@ -26,6 +26,8 @@ namespace TheLeash
         private bool hasAlerted;
 
         private AudioListener audioListener;
+        private SoundEffect dyingSound;
+        private SoundEffect whistleSound;
 
         public AudioListener AudioListener
         {
@@ -60,6 +62,9 @@ namespace TheLeash
             Players.OldMan.AddAnimation("standing", oldManStanding);
 
             Players.OldMan.CurrentAnimationName = "standing";
+
+            dyingSound = content.Load<SoundEffect>(@"Audio/manDying");
+            whistleSound = content.Load<SoundEffect>(@"Audio/whistle");
         }
 
         public override void Update(GameTime gameTime)
@@ -238,13 +243,18 @@ namespace TheLeash
 
         private void Alert()
         {
-            Console.WriteLine("Where's my dog!!!");
+            SoundEffectInstance whistle = whistleSound.CreateInstance();
+            whistle.Play();
+            Console.WriteLine("*Whistle* Where's my dog!!!");
         }
 
         public override void Hit()
         {
             if (Alive)
             {
+                SoundEffectInstance dying = dyingSound.CreateInstance();
+                dying.Play();
+
                 Console.WriteLine("The old man has died!");
                 CurrentAnimationName = "standing";
                 Alive = false;
