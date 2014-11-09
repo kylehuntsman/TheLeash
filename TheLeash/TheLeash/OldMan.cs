@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -24,6 +25,13 @@ namespace TheLeash
 
         private bool hasAlerted;
 
+        private AudioListener audioListener;
+
+        public AudioListener AudioListener
+        {
+            get { return audioListener; }
+        }
+
         public OldMan(PlayerIndex index) 
             : this(index, 0, 0) {}
 
@@ -37,6 +45,8 @@ namespace TheLeash
             hasAlerted = false;
 
             Bounds = new Rectangle((int)X, (int)Y + 16, 19, 16);
+
+            audioListener = new AudioListener();
         }
 
         public override void LoadContent(ContentManager content)
@@ -154,6 +164,7 @@ namespace TheLeash
             Y += velocity.Y * (float) (gameTime.ElapsedGameTime.Milliseconds / 200f);
 
             Bounds = new Rectangle((int)X, (int)Y + 16, 19, 16);
+            audioListener.Position = new Vector3(X / 10f, 0, Y / 10f);
         }
 
         // Feeling Mechanic

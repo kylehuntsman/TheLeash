@@ -79,7 +79,7 @@ namespace TheLeash
             this.y = y;
             this.speed = 0;
             this.playerIndex = index;
-            this.isAlive = true;
+            this.alive = true;
             this.animations = new Dictionary<string, Animation>();
             this.currentAnimationName = "";
         }

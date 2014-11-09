@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,6 +18,20 @@ namespace TheLeash
         private bool hasBarked;
         private bool hasGrowled;
 
+        private AudioEmitter emitter;
+        private SoundEffect soundEffect;
+        public SoundEffectInstance sfi;
+
+        public AudioEmitter Emitter
+        {
+            get { return emitter; }
+        }
+
+        public SoundEffect SoundEffect
+        {
+            get { return soundEffect; }
+        }
+
         public Dog(PlayerIndex index)
             : this(index, 0, 0) {}
 
@@ -31,6 +46,8 @@ namespace TheLeash
             hasGrowled = false;
 
             Bounds = new Rectangle((int)X, (int)Y + 9, 26, 9);
+
+            emitter = new AudioEmitter();
         }
 
         public override void LoadContent(ContentManager content)
@@ -44,6 +61,10 @@ namespace TheLeash
             Players.Dog.AddAnimation("standing", dogStanding);
 
             Players.Dog.CurrentAnimationName = "standing";
+
+            soundEffect = content.Load<SoundEffect>(@"Audio/Tone");
+            sfi = soundEffect.CreateInstance();
+            sfi.IsLooped = true;
         }
 
         public override void Update(GameTime gameTime)
@@ -147,6 +168,7 @@ namespace TheLeash
             Y += velocity.Y * (float)(gameTime.ElapsedGameTime.Milliseconds / 200f);
 
             Bounds = new Rectangle((int)X, (int)Y + 9, 26, 9);
+            emitter.Position = new Vector3(X / 10f, 0, Y / 10f);
         }
 
         // Actions

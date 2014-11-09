@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Audio;
 
 namespace TheLeash
 {
@@ -16,6 +17,8 @@ namespace TheLeash
         private List<Point> spawnLocations;
         private Random random = new Random();
         private Rectangle screenBounds;
+
+        private SoundEffect soundEffect;
 
         public CarManager(Game game)
         {
@@ -41,6 +44,8 @@ namespace TheLeash
             Animation carAnim = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestCar_Anim"),
                new Point(31, 25), new Point(0, 0), new Point(1, 2), 600);
             animations.Add(carAnim);
+
+            soundEffect = content.Load<SoundEffect>(@"Audio/Tone");
         }
 
         public virtual void Update(GameTime gameTime)
@@ -94,6 +99,9 @@ namespace TheLeash
                 (float)spawnLocations[spawnIndex].X,
                 (float)spawnLocations[spawnIndex].Y,
                 speed);
+
+            newCar.SoundEffect = soundEffect;
+
             return newCar;
         }
 
