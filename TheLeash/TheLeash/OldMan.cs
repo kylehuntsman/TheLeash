@@ -119,20 +119,6 @@ namespace TheLeash
             CurrentAnimationName = "standing" + Direction;
 
             // DPad
-            if (dPad.Left == ButtonState.Pressed)
-            {
-                velocity.X = -Speed;
-                CurrentAnimationName = "walkingLeft";
-                Direction = "Left";
-            }
-
-            if (dPad.Right == ButtonState.Pressed)
-            {
-                velocity.X = Speed;
-                CurrentAnimationName = "walkingRight";
-                Direction = "Right";
-            }
-
             if (dPad.Up == ButtonState.Pressed)
             {
                 velocity.Y = -Speed;
@@ -147,21 +133,21 @@ namespace TheLeash
                 Direction = "Front";
             }
 
-            // Left Thumbstick 
-            if (moveVector.X > 0)
-            {
-                velocity.X = Speed;
-                CurrentAnimationName = "walkingRight";
-                Direction = "Right";
-            }
-
-            if (moveVector.X < 0)
+            if (dPad.Left == ButtonState.Pressed)
             {
                 velocity.X = -Speed;
                 CurrentAnimationName = "walkingLeft";
                 Direction = "Left";
             }
 
+            if (dPad.Right == ButtonState.Pressed)
+            {
+                velocity.X = Speed;
+                CurrentAnimationName = "walkingRight";
+                Direction = "Right";
+            }
+
+            // Left Thumbstick
             if (moveVector.Y > 0)
             {
                 velocity.Y = -Speed;
@@ -174,6 +160,20 @@ namespace TheLeash
                 velocity.Y = Speed;
                 CurrentAnimationName = "walkingFront";
                 Direction = "Front";
+            }
+
+            if (moveVector.X > 0)
+            {
+                velocity.X = Speed;
+                CurrentAnimationName = "walkingRight";
+                Direction = "Right";
+            }
+
+            if (moveVector.X < 0)
+            {
+                velocity.X = -Speed;
+                CurrentAnimationName = "walkingLeft";
+                Direction = "Left";
             }
 
             if (X < 0)

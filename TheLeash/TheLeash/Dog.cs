@@ -48,15 +48,42 @@ namespace TheLeash
 
         public override void LoadContent(ContentManager content)
         {
-            Animation dogWalking = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestDog_Anim"),
-               new Point(26, 18), new Point(0, 0), new Point(1, 2), 100);
-            Players.Dog.AddAnimation("walking", dogWalking);
+            // Walking animations
+            Animation walkingFront = new Animation(content.Load<Texture2D>(@"Images/Dog/front_sheet"),
+               new Point(10, 16), new Point(0, 0), new Point(4, 1), 200);
+            Players.Dog.AddAnimation("walkingFront", walkingFront);
 
-            Animation dogStanding = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestDog_Anim"),
-                new Point(26, 18), new Point(0, 0), new Point(1, 1), int.MaxValue);
-            Players.Dog.AddAnimation("standing", dogStanding);
+            Animation walkingLeft = new Animation(content.Load<Texture2D>(@"Images/Dog/left_sheet"),
+               new Point(24, 16), new Point(0, 0), new Point(2, 1), 200);
+            Players.Dog.AddAnimation("walkingLeft", walkingLeft);
 
-            Players.Dog.CurrentAnimationName = "standing";
+            Animation walkingRight = new Animation(content.Load<Texture2D>(@"Images/Dog/right_sheet"),
+               new Point(24, 16), new Point(0, 0), new Point(2, 1), 200);
+            Players.Dog.AddAnimation("walkingRight", walkingRight);
+
+            Animation walkingBack = new Animation(content.Load<Texture2D>(@"Images/Dog/back_sheet"),
+               new Point(10, 16), new Point(0, 0), new Point(3, 1), 200);
+            Players.Dog.AddAnimation("walkingBack", walkingBack);
+
+            // Standing animations
+            Animation standingFront = new Animation(content.Load<Texture2D>(@"Images/Dog/front"),
+               new Point(10, 16), new Point(0, 0), new Point(1, 1), 200);
+            Players.Dog.AddAnimation("standingFront", standingFront);
+
+            Animation standingLeft = new Animation(content.Load<Texture2D>(@"Images/Dog/left"),
+               new Point(24, 16), new Point(0, 0), new Point(1, 1), 200);
+            Players.Dog.AddAnimation("standingLeft", standingLeft);
+
+            Animation standingRight = new Animation(content.Load<Texture2D>(@"Images/Dog/right"),
+               new Point(24, 16), new Point(0, 0), new Point(1, 1), 200);
+            Players.Dog.AddAnimation("standingRight", standingRight);
+
+            Animation standingBack = new Animation(content.Load<Texture2D>(@"Images/Dog/back"),
+               new Point(10, 16), new Point(0, 0), new Point(1, 1), 200);
+            Players.Dog.AddAnimation("standingBack", standingBack);
+
+            Players.Dog.CurrentAnimationName = "standingBack";
+            Players.Dog.Direction = "Back";
 
             barkSound = content.Load<SoundEffect>(@"Audio/bark");
             growlSound = content.Load<SoundEffect>(@"Audio/growl");
@@ -84,56 +111,64 @@ namespace TheLeash
             velocity.X = 0;
             velocity.Y = 0;
 
-            CurrentAnimationName = "standing";
+            CurrentAnimationName = "standing" + Direction;
 
-            // DPad Movement
-            if (dPad.Left == ButtonState.Pressed)
-            {
-                velocity.X = -Speed;
-                CurrentAnimationName = "walking";
-            }
-
-            if (dPad.Right == ButtonState.Pressed)
-            {
-                velocity.X = Speed;
-                CurrentAnimationName = "walking";
-            }
-
+            // DPad
             if (dPad.Up == ButtonState.Pressed)
             {
                 velocity.Y = -Speed;
-                CurrentAnimationName = "walking";
+                CurrentAnimationName = "walkingBack";
+                Direction = "Back";
             }
 
             if (dPad.Down == ButtonState.Pressed)
             {
                 velocity.Y = Speed;
-                CurrentAnimationName = "walking";
+                CurrentAnimationName = "walkingFront";
+                Direction = "Front";
+            }
+
+            if (dPad.Left == ButtonState.Pressed)
+            {
+                velocity.X = -Speed;
+                CurrentAnimationName = "walkingLeft";
+                Direction = "Left";
+            }
+
+            if (dPad.Right == ButtonState.Pressed)
+            {
+                velocity.X = Speed;
+                CurrentAnimationName = "walkingRight";
+                Direction = "Right";
             }
 
             // Left Thumbstick 
-            if (moveVector.X > 0)
-            {
-                velocity.X = Speed;
-                CurrentAnimationName = "walking";
-            }
-
-            if (moveVector.X < 0)
-            {
-                velocity.X = -Speed;
-                CurrentAnimationName = "walking";
-            }
-
             if (moveVector.Y > 0)
             {
                 velocity.Y = -Speed;
-                CurrentAnimationName = "walking";
+                CurrentAnimationName = "walkingBack";
+                Direction = "Back";
             }
 
             if (moveVector.Y < 0)
             {
                 velocity.Y = Speed;
-                CurrentAnimationName = "walking";
+                CurrentAnimationName = "walkingFront";
+                Direction = "Front";
+            }
+
+            if (moveVector.X > 0)
+            {
+                velocity.X = Speed;
+                CurrentAnimationName = "walkingRight";
+                Direction = "Right";
+            }
+
+            if (moveVector.X < 0)
+            {
+                velocity.X = -Speed;
+                CurrentAnimationName = "walkingLeft";
+                Direction = "Left";
             }
 
             if (X < 0)
