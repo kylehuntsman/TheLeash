@@ -33,7 +33,7 @@ namespace TheLeash
         public virtual void LoadContent(ContentManager content)
         {
             Animation carAnim = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestCar_Anim"),
-               new Point(32, 32), new Point(0, 0), new Point(1, 2), 600);
+               new Point(31, 25), new Point(0, 0), new Point(1, 2), 600);
             animations.Add(carAnim);
         }
 

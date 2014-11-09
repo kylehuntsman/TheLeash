@@ -38,7 +38,7 @@ namespace TheLeash
             velocity = new Vector2(0, 0);
             hasAlerted = false;
 
-            Bounds = new Rectangle(0, 16, 19, 16);
+            Bounds = new Rectangle((int)X, (int)Y + 16, 19, 16);
         }
 
         public override void LoadContent(ContentManager content)
@@ -57,6 +57,11 @@ namespace TheLeash
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if (!IsAlive)
+            {
+                return;
+            }
+
             FeelingMechanic();
             Move(gameTime);
             Actions();
@@ -149,16 +154,21 @@ namespace TheLeash
 
             X += velocity.X * (float) (gameTime.ElapsedGameTime.Milliseconds / 200f);
             Y += velocity.Y * (float) (gameTime.ElapsedGameTime.Milliseconds / 200f);
+
+            Bounds = new Rectangle((int)X, (int)Y + 16, 19, 16);
         }
 
         // Feeling Mechanic
         private void FeelingMechanic()
         {
+            if (!Players.Dog.IsAlive)
+            {
+                return;
+            }
+
             Vector2 toDog = new Vector2(Players.Dog.X - X, -1 * (Players.Dog.Y - Y));
             float distanceToDog = toDog.Length();
             toDog.Normalize();
-
-            //Console.WriteLine("Distance to Dog: " + distanceToDog);
 
             feelVector = GamePadState.ThumbSticks.Right;
             feelVector.Normalize();
@@ -220,6 +230,16 @@ namespace TheLeash
         private void Alert()
         {
             Console.WriteLine("Where's my dog!!!");
+        }
+
+        public override void Hit()
+        {
+            if (IsAlive)
+            {
+                Console.WriteLine("The old man has died!");
+                CurrentAnimationName = "standing";
+                IsAlive = false;
+            }
         }
 
         private double GetDirection(Vector2 vector)

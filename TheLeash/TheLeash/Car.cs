@@ -34,8 +34,8 @@ namespace TheLeash
 
         public Rectangle Bounds
         {
-            get;
-            set;
+            get { return bounds; }
+            set { bounds = value; }
         }
 
         public Car(Animation animation, float x, float y, float speed) 
@@ -44,12 +44,25 @@ namespace TheLeash
             this.y = y;
             this.speed = speed;
             this.animation = animation;
+
+            bounds = new Rectangle((int)X, (int)Y + animation.FrameSize.Y / 2, (int)animation.FrameSize.X, animation.FrameSize.Y / 2);
         }
 
         public virtual void Update(GameTime gameTime)
         {
+            Rectangle currentBounds = new Rectangle((int)X, (int)Y + animation.FrameSize.Y / 2, (int)animation.FrameSize.X, animation.FrameSize.Y / 2);
             x += speed * (float)(gameTime.ElapsedGameTime.Milliseconds / 200f);
             animation.Update(gameTime);
+
+            if (currentBounds.Intersects(Players.OldMan.Bounds))
+            {
+                Players.OldMan.Hit();
+            }
+
+            if (currentBounds.Intersects(Players.Dog.Bounds))
+            {
+                Players.Dog.Hit();
+            }
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)

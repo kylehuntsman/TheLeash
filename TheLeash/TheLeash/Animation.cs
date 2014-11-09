@@ -26,6 +26,11 @@ namespace TheLeash
         private int millisecondsPerFrame;
         private const int DEFAULT_MILLISECONDS_PER_FRAME = 32;
 
+        public Point FrameSize
+        {
+            get { return frameSize; }
+        }
+
         public Animation(Texture2D textureImage, Point framesize, Point currentFrame, Point sheetSize)
             : this(textureImage, framesize, currentFrame, sheetSize, DEFAULT_MILLISECONDS_PER_FRAME)
         {

@@ -43,6 +43,7 @@ namespace TheLeash
         public bool IsAlive
         {
             get { return this.isAlive; }
+            set { isAlive = value; }
         }
 
         public string CurrentAnimationName

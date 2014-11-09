@@ -49,6 +49,12 @@ namespace TheLeash
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (!IsAlive)
+            {
+                return;
+            }
+
             Move(gameTime);
             Actions();
         }
@@ -139,6 +145,8 @@ namespace TheLeash
 
             X += velocity.X * (float)(gameTime.ElapsedGameTime.Milliseconds / 200f);
             Y += velocity.Y * (float)(gameTime.ElapsedGameTime.Milliseconds / 200f);
+
+            Bounds = new Rectangle((int)X, (int)Y + 9, 26, 9);
         }
 
         // Actions
@@ -180,6 +188,12 @@ namespace TheLeash
         public override void Hit()
         {
             base.Hit();
+            if (IsAlive)
+            {
+                Console.WriteLine("Dog has died!");
+                CurrentAnimationName = "standing";
+                IsAlive = false;
+            }
         }
     }
 }
