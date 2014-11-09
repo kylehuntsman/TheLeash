@@ -26,7 +26,7 @@ namespace TheLeash
             Texture2D image)
             : base(game, spriteBatch)
         {
-            string[] menuItems = { "Start Game", "Information", "Credits", "End Game" };
+            string[] menuItems = { "Start Game", "Controls", "Credits", "End Game" };
             menuComponent = new MenuComponent(game, spriteBatch,
                 spriteFont, menuItems);
             Components.Add(menuComponent);

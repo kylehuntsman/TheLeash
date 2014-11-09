@@ -45,6 +45,7 @@ namespace TheLeash
             graphics.PreferredBackBufferHeight = 720;
             graphics.PreferredBackBufferWidth = 1080;
             Content.RootDirectory = "Content";
+            Console.WriteLine("Loading Content from the game");
         }
 
         #region Initialize
@@ -78,23 +79,23 @@ namespace TheLeash
             startScreen = new StartScreen(this,
                 spriteBatch,
                 Content.Load<SpriteFont>("Font/menuFont"),
-                Content.Load<Texture2D>("Images/TestImages/back1"));
+                Content.Load<Texture2D>("Images/Backgrounds/Title"));
             Components.Add(startScreen);
             startScreen.Hide();
 
-            playScreen = new PlayScreen(this, spriteBatch,
-                Content.Load<Texture2D>("Images/TestImages/back2"));
+            playScreen = new PlayScreen(this, spriteBatch);
+            playScreen.LoadContent(Content);
             Components.Add(playScreen);
             playScreen.Hide();
 
             
             infoScreen = new InfoScreen(this, spriteBatch,
-                Content.Load<Texture2D>("Images/TestImages/back2"));
+                Content.Load<Texture2D>("Images/Backgrounds/Controls"));
             Components.Add(infoScreen);
             infoScreen.Hide();
 
             creditScreen = new CreditScreen(this, spriteBatch,
-                Content.Load<Texture2D>("Images/TestImages/back2"));
+                Content.Load<Texture2D>("Images/Backgrounds/Credits"));
             Components.Add(creditScreen);
             creditScreen.Hide();
 
