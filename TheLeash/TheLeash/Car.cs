@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,5 +38,16 @@ namespace TheLeash
             this.speed = speed;
             this.animation = animation;
         }
+
+        public virtual void Update(GameTime gameTime)
+        {
+            animation.Update(gameTime);
+        }
+
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(animation.TextureImage, new Vector2(x, y),
+                    animation.GetCurrentFrameRectangle(), Color.White);
+        } 
     }
 }
