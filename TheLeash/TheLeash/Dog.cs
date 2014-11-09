@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -28,6 +29,19 @@ namespace TheLeash
 
             hasBarked = false;
             hasGrowled = false;
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            Animation dogWalking = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestDog_Anim"),
+               new Point(32, 32), new Point(0, 0), new Point(1, 2), 100);
+            Players.Dog.AddAnimation("walking", dogWalking);
+
+            Animation dogStanding = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestDog_Anim"),
+                new Point(32, 32), new Point(0, 0), new Point(1, 1), int.MaxValue);
+            Players.Dog.AddAnimation("standing", dogStanding);
+
+            Players.Dog.CurrentAnimationName = "standing";
         }
 
         public override void Update(GameTime gameTime)
