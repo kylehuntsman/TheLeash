@@ -9,21 +9,32 @@ namespace TheLeash
 {
     class OldMan : Player
     {
+        private const double MIN_PERCENT_FOR_LEFT_VIB = .8d;
+        private const double RIGHT_VIB_PENALTY = .02d;
+        private const int MAX_DOG_DISTANCE = 64;
+
         private bool alive;
 
-        private Vector2 feelVector ;
-        private double vibratePercentage;
+        private Vector2 feelVector;
+        private double leftVibPercentage;
+        private double rightVibPercentage;
 
         private Vector2 moveVector;
         private Vector2 velocity;
 
-        public OldMan(PlayerIndex index)
-            : base(index)
+        private bool hasAlerted;
+
+        public OldMan(PlayerIndex index) 
+            : this(index, 0, 0) {}
+
+        public OldMan(PlayerIndex index, float x, float y)
+            : base(index, x, y)
         {
             Speed = 10;
             feelVector = new Vector2();
             moveVector = new Vector2();
             velocity = new Vector2(0, 0);
+            hasAlerted = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -31,19 +42,21 @@ namespace TheLeash
             base.Update(gameTime);
             FeelingMechanic();
             Move(gameTime);
-            Console.WriteLine(X + " " + Y);
+            Actions();
         }
 
+        // Movement
         public override void Move(GameTime gameTime)
         {
-            moveVector = GamePadState.ThumbSticks.Left;
             GamePadDPad dPad = GamePadState.DPad;
+            moveVector = GamePadState.ThumbSticks.Left;
 
             velocity.X = 0;
             velocity.Y = 0;
 
             CurrentAnimationName = "standing";
 
+            // DPad
             if (dPad.Left == ButtonState.Pressed)
             {
                 velocity.X = -Speed;
@@ -68,6 +81,31 @@ namespace TheLeash
                 CurrentAnimationName = "walking";
             }
 
+            // Left Thumbstick 
+            if (moveVector.X > 0)
+            {
+                velocity.X = Speed;
+                CurrentAnimationName = "walking";
+            }
+
+            if (moveVector.X < 0)
+            {
+                velocity.X = -Speed;
+                CurrentAnimationName = "walking";
+            }
+
+            if (moveVector.Y > 0)
+            {
+                velocity.Y = -Speed;
+                CurrentAnimationName = "walking";
+            }
+
+            if (moveVector.Y < 0)
+            {
+                velocity.Y = Speed;
+                CurrentAnimationName = "walking";
+            }
+
             X += velocity.X * (float) (gameTime.ElapsedGameTime.Milliseconds / 200f);
             Y += velocity.Y * (float) (gameTime.ElapsedGameTime.Milliseconds / 200f);
         }
@@ -75,43 +113,72 @@ namespace TheLeash
         // Feeling Mechanic
         private void FeelingMechanic()
         {
+            Vector2 toDog = new Vector2(Players.Dog.X - X, -1 * (Players.Dog.Y - Y));
+            float distanceToDog = toDog.Length();
+            toDog.Normalize();
+
+            //Console.WriteLine("Distance to Dog: " + distanceToDog);
+
             feelVector = GamePadState.ThumbSticks.Right;
-            vibratePercentage = 0;
+            feelVector.Normalize();
+            leftVibPercentage = 0;
+            rightVibPercentage = 0;
 
             if (feelVector.Length() > .75f)
             {
-                FeelAround();
+                double toDogDirection = GetDirection(toDog);
+                double feelDirection = GetDirection(feelVector);
+
+                double c = Math.Sqrt((toDog.X - feelVector.X) * (toDog.X - feelVector.X) + (toDog.Y - feelVector.Y) * (toDog.Y - feelVector.Y));
+                double numerator = toDog.LengthSquared() + feelVector.LengthSquared() - (c * c);
+                double denominator = 2f * toDog.Length() * feelVector.Length();
+                double value = numerator / denominator;
+                double diffRadians = Math.Acos(Math.Round(value, 6));
+                double diffDegrees = diffRadians * (360d / ( 2d * Math.PI));
+
+                if (diffDegrees < 90d)
+                {
+                    rightVibPercentage = 1 - (diffDegrees / 90d);
+                }
             }
 
-            if (vibratePercentage > .8d)
+            if (rightVibPercentage > MIN_PERCENT_FOR_LEFT_VIB && distanceToDog <= MAX_DOG_DISTANCE)
             {
-                GamePad.SetVibration(PlayerIndex, (float)vibratePercentage * 1f, (float)vibratePercentage * 1f);
+                leftVibPercentage = rightVibPercentage;
             }
-            else
+            else if (distanceToDog > MAX_DOG_DISTANCE)
             {
-                GamePad.SetVibration(PlayerIndex, 0f, (float)vibratePercentage * 1f);
+                double outerDist = distanceToDog - MAX_DOG_DISTANCE;
+                leftVibPercentage = 0d;
+                rightVibPercentage -= outerDist * RIGHT_VIB_PENALTY;
+
+                if (rightVibPercentage < 0)
+                {
+                    rightVibPercentage = 0d;
+                }
+            }
+
+            GamePad.SetVibration(PlayerIndex, (float)leftVibPercentage * 1f, (float)rightVibPercentage * 1f);
+        }
+
+        // Actions
+        private void Actions()
+        {
+            if (GamePadState.Buttons.RightStick == ButtonState.Pressed && hasAlerted == false)
+            {
+                Alert();
+                hasAlerted = true;
+            }
+
+            if (GamePadState.Buttons.RightStick == ButtonState.Released)
+            {
+                hasAlerted = false;
             }
         }
 
-        private void FeelAround()
+        private void Alert()
         {
-            Vector2 toDog = new Vector2(Players.Dog.X - X, -1 * (Players.Dog.Y - Y));
-            toDog.Normalize();
-            feelVector.Normalize();
-            double toDogDirection = GetDirection(toDog);
-            double feelDirection = GetDirection(feelVector);
-
-            double c = Math.Sqrt((toDog.X - feelVector.X) * (toDog.X - feelVector.X) + (toDog.Y - feelVector.Y) * (toDog.Y - feelVector.Y));
-            double numerator = toDog.LengthSquared() + feelVector.LengthSquared() - (c * c);
-            double denominator = 2f * toDog.Length() * feelVector.Length();
-            double value = numerator / denominator;
-            double diffRadians = Math.Acos(Math.Round(value, 6));
-            double diffDegrees = 360d * (diffRadians / (2d * Math.PI));
-
-            if (diffDegrees < 90d)
-            {
-                vibratePercentage = 1 - (diffDegrees / 90d);
-            }
+            Console.WriteLine("Where's my dog!!!");
         }
 
         private double GetDirection(Vector2 vector)
@@ -123,7 +190,7 @@ namespace TheLeash
                 radians = 2 * Math.PI + radians;
             }
 
-            degrees = 360 * (radians / 2 * Math.PI);
+            degrees = radians * (360d / (2d * Math.PI));
             return degrees;
         }
     }

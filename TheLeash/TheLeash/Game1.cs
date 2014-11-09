@@ -49,8 +49,8 @@ namespace TheLeash
 
         private void InitializePlayers()
         {
-            Players.OldMan = new OldMan(PlayerIndex.One);
-            Players.Dog = new Dog(PlayerIndex.Two);
+            Players.OldMan = new OldMan(PlayerIndex.One, 300, 150);
+            Players.Dog = new Dog(PlayerIndex.Two, 300, 150);
         }
 
         #region Load Content
