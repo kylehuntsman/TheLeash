@@ -19,6 +19,7 @@ namespace TheLeash
         private Rectangle screenBounds;
 
         private SoundEffect soundEffect;
+        private List<SoundEffect> soundEffects;
 
         public CarManager(Game game)
         {
@@ -26,6 +27,7 @@ namespace TheLeash
             removedCars = new List<Car>();
             animations = new List<Animation>();
             spawnLocations = new List<Point>();
+            soundEffects = new List<SoundEffect>();
 
             Point spawnA = new Point(0, 301);
             Point spawnB = new Point(1080, 500);
@@ -45,7 +47,9 @@ namespace TheLeash
                new Point(31, 25), new Point(0, 0), new Point(1, 2), 600);
             animations.Add(carAnim);
 
-            soundEffect = content.Load<SoundEffect>(@"Audio/Tone");
+            soundEffects.Add(content.Load<SoundEffect>(@"Audio/carSound1"));
+            //soundEffects.Add(content.Load<SoundEffect>(@"Audio/carSound2"));
+            //soundEffects.Add(content.Load<SoundEffect>(@"Audio/carSound3"));
         }
 
         public virtual void Update(GameTime gameTime)
@@ -86,6 +90,8 @@ namespace TheLeash
         {
             int animationIndex = random.Next(0, animations.Count);
             int spawnIndex = random.Next(0, spawnLocations.Count);
+            int soundIndex = random.Next(0, soundEffects.Count);
+
             float speed = (float)random.Next(10, 30);
             if (spawnLocations[spawnIndex].X <= 0)
             {
@@ -100,7 +106,7 @@ namespace TheLeash
                 (float)spawnLocations[spawnIndex].Y,
                 speed);
 
-            newCar.SoundEffect = soundEffect;
+            newCar.SoundEffect = soundEffects[soundIndex];
 
             return newCar;
         }

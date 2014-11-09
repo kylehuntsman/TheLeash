@@ -169,7 +169,7 @@ namespace TheLeash
             Y += velocity.Y * (float) (gameTime.ElapsedGameTime.Milliseconds / 200f);
 
             Bounds = new Rectangle((int)X, (int)Y + 16, 19, 16);
-            audioListener.Position = new Vector3(X / 10f, 0, Y / 10f);
+            audioListener.Position = new Vector3(X / 8f, 0, Y / 8f);
         }
 
         // Feeling Mechanic
@@ -253,6 +253,7 @@ namespace TheLeash
             if (Alive)
             {
                 SoundEffectInstance dying = dyingSound.CreateInstance();
+                dying.Volume = .05f;
                 dying.Play();
 
                 Console.WriteLine("The old man has died!");
