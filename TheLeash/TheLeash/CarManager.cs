@@ -25,9 +25,15 @@ namespace TheLeash
             spawnLocations = new List<Point>();
 
             Point spawnA = new Point(0, 301);
-            Point spawnB = new Point(300, 300);
+            Point spawnB = new Point(1080, 500);
+            Point spawnC = new Point(1080, 200);
+            Point spawnD = new Point(0, 700);
+            Point spawnE = new Point(0, 100);
             spawnLocations.Add(spawnA);
             spawnLocations.Add(spawnB);
+            spawnLocations.Add(spawnC);
+            spawnLocations.Add(spawnD);
+            spawnLocations.Add(spawnE);
         }
 
         public virtual void LoadContent(ContentManager content)
@@ -42,7 +48,7 @@ namespace TheLeash
             foreach (Car car in this.cars)
             {
                 car.Update(gameTime);
-                if (car.X < 0 || car.X > 1080)
+                if (car.X + car.Bounds.Width < 0 || car.X > 1080)
                 {
                     removedCars.Add(car);
                 }
