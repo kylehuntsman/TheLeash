@@ -14,10 +14,12 @@ namespace TheLeash
         private Vector2 velocity;
 
         public Dog(PlayerIndex index)
-            : base(index)
+            : this(index, 0, 0) {}
+
+        public Dog(PlayerIndex index, float x, float y)
+            : base(index, x, y)
         {
             Speed = 20;
-
             velocity = new Vector2(0, 0);
         }
 
