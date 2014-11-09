@@ -19,17 +19,12 @@ namespace TheLeash
         private bool hasGrowled;
 
         private AudioEmitter emitter;
-        private SoundEffect soundEffect;
-        public SoundEffectInstance sfi;
+        private SoundEffect barkSound;
+        private SoundEffect growlSound;
 
         public AudioEmitter Emitter
         {
             get { return emitter; }
-        }
-
-        public SoundEffect SoundEffect
-        {
-            get { return soundEffect; }
         }
 
         public Dog(PlayerIndex index)
@@ -62,9 +57,7 @@ namespace TheLeash
 
             Players.Dog.CurrentAnimationName = "standing";
 
-            soundEffect = content.Load<SoundEffect>(@"Audio/Tone");
-            sfi = soundEffect.CreateInstance();
-            sfi.IsLooped = true;
+            barkSound = content.Load<SoundEffect>(@"Audio/bark");
         }
 
         public override void Update(GameTime gameTime)
