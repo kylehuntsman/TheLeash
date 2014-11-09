@@ -13,6 +13,7 @@ namespace TheLeash
         private float x, y;
         private float speed;
         private Dictionary<string, Animation> animations;
+        private bool isAlive;
         private string currentAnimationName;
 
         private PlayerIndex playerIndex;
@@ -34,6 +35,11 @@ namespace TheLeash
         {
             get { return this.speed; }
             set { this.speed = value; }
+        }
+
+        public bool IsAlive
+        {
+            get { return this.isAlive; }
         }
 
         public string CurrentAnimationName
@@ -63,6 +69,7 @@ namespace TheLeash
             this.y = y;
             this.speed = 0;
             this.playerIndex = index;
+            this.isAlive = true;
             this.animations = new Dictionary<string, Animation>();
             this.currentAnimationName = "";
         }
