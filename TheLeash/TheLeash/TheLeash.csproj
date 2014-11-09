@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car.cs" />
+    <Compile Include="CarManager.cs" />
     <Compile Include="Dog.cs" />
     <Compile Include="OldMan.cs" />
     <Compile Include="Player.cs" />
