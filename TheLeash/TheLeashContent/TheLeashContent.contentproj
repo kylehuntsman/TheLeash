@@ -70,13 +70,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\Tone.wav">
-      <Name>Tone</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Font\menuFont.spritefont">
       <Name>menuFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -105,6 +98,18 @@
   <ItemGroup>
     <Compile Include="Audio\carSound1.wav">
       <Name>carSound1</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\manDying.wav">
+      <Name>manDying</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Audio\whistle.wav">
+      <Name>whistle</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
