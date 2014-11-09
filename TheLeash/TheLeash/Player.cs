@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Content;
 
 namespace TheLeash
 {
@@ -15,6 +16,8 @@ namespace TheLeash
         private Dictionary<string, Animation> animations;
         private bool isAlive;
         private string currentAnimationName;
+
+        private Rectangle bounds;
 
         private PlayerIndex playerIndex;
         private GamePadState gamePadState;
@@ -56,7 +59,13 @@ namespace TheLeash
         public GamePadState GamePadState
         {
             get { return gamePadState; }
-        }  
+        }
+
+        public Rectangle Bounds
+        {
+            get { return bounds; }
+            set { value = bounds; }
+        }
 
         public Player(PlayerIndex index)
             :this(index, 0,0)
@@ -72,6 +81,11 @@ namespace TheLeash
             this.isAlive = true;
             this.animations = new Dictionary<string, Animation>();
             this.currentAnimationName = "";
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+
         }
 
         public void AddAnimation(string animationName, Animation animation) 

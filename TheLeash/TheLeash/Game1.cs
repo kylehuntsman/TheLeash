@@ -69,36 +69,10 @@ namespace TheLeash
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             carManager.LoadContent(Content);
-            LoadOldMan();
-            LoadDog();
+            Players.OldMan.LoadContent(Content);
+            Players.Dog.LoadContent(Content);
         }
         #endregion
-
-        private void LoadOldMan()
-        {
-            Animation oldManWalking = new Animation(Content.Load<Texture2D>(@"Images/TestImages/TestOldMan_Anim"),
-               new Point(32, 32), new Point(0, 0), new Point(1, 2), 100);
-            Players.OldMan.AddAnimation("walking", oldManWalking);
-
-            Animation oldManStanding = new Animation(Content.Load<Texture2D>(@"Images/TestImages/TestOldMan_Anim"),
-               new Point(32, 32), new Point(0, 0), new Point(1, 1), 100);
-            Players.OldMan.AddAnimation("standing", oldManStanding);
-
-            Players.OldMan.CurrentAnimationName = "standing";
-        }
-
-        private void LoadDog()
-        {
-            Animation dogWalking = new Animation(Content.Load<Texture2D>(@"Images/TestImages/TestDog_Anim"),
-               new Point(32, 32), new Point(0, 0), new Point(1, 2), 100);
-            Players.Dog.AddAnimation("walking", dogWalking);
-
-            Animation dogStanding = new Animation(Content.Load<Texture2D>(@"Images/TestImages/TestDog_Anim"),
-                new Point(32, 32), new Point(0, 0), new Point(1, 1), int.MaxValue);
-            Players.Dog.AddAnimation("standing", dogStanding);
-
-            Players.Dog.CurrentAnimationName = "standing";
-        }
 
         #region Unload Content
         /// <summary>
