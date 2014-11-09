@@ -64,7 +64,7 @@ namespace TheLeash
         public Rectangle Bounds
         {
             get { return bounds; }
-            set { value = bounds; }
+            set { bounds = value; }
         }
 
         public Player(PlayerIndex index)
@@ -83,7 +83,7 @@ namespace TheLeash
             this.currentAnimationName = "";
         }
 
-        public void LoadContent(ContentManager content)
+        public virtual void LoadContent(ContentManager content)
         {
 
         }

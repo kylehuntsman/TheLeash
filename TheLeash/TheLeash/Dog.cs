@@ -29,16 +29,18 @@ namespace TheLeash
 
             hasBarked = false;
             hasGrowled = false;
+
+            Bounds = new Rectangle((int)X, (int)Y + 9, 26, 9);
         }
 
         public override void LoadContent(ContentManager content)
         {
             Animation dogWalking = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestDog_Anim"),
-               new Point(32, 32), new Point(0, 0), new Point(1, 2), 100);
+               new Point(26, 18), new Point(0, 0), new Point(1, 2), 100);
             Players.Dog.AddAnimation("walking", dogWalking);
 
             Animation dogStanding = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestDog_Anim"),
-                new Point(32, 32), new Point(0, 0), new Point(1, 1), int.MaxValue);
+                new Point(26, 18), new Point(0, 0), new Point(1, 1), int.MaxValue);
             Players.Dog.AddAnimation("standing", dogStanding);
 
             Players.Dog.CurrentAnimationName = "standing";
@@ -109,6 +111,30 @@ namespace TheLeash
             {
                 velocity.Y = Speed;
                 CurrentAnimationName = "walking";
+            }
+
+            if (X < 0)
+            {
+                X = 0;
+                velocity.X = 0;
+            }
+
+            if (X + Bounds.Width > 1080)
+            {
+                X = 1080 - Bounds.Width;
+                velocity.X = 0;
+            }
+
+            if (Y < 0)
+            {
+                Y = 0;
+                velocity.Y = 0;
+            }
+
+            if (Y + Bounds.Height > 720)
+            {
+                Y = 720 - Bounds.Height;
+                velocity.Y = 0;
             }
 
             X += velocity.X * (float)(gameTime.ElapsedGameTime.Milliseconds / 200f);

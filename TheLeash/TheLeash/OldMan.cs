@@ -38,17 +38,17 @@ namespace TheLeash
             velocity = new Vector2(0, 0);
             hasAlerted = false;
 
-            Bounds = new Rectangle(0, 48, 32, 16);
+            Bounds = new Rectangle(0, 16, 19, 16);
         }
 
         public override void LoadContent(ContentManager content)
         {
             Animation oldManWalking = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestOldMan_Anim"),
-               new Point(32, 32), new Point(0, 0), new Point(1, 2), 100);
+               new Point(19, 32), new Point(0, 0), new Point(1, 2), 100);
             Players.OldMan.AddAnimation("walking", oldManWalking);
 
             Animation oldManStanding = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestOldMan_Anim"),
-               new Point(32, 32), new Point(0, 0), new Point(1, 1), 100);
+               new Point(19, 32), new Point(0, 0), new Point(1, 1), 100);
             Players.OldMan.AddAnimation("standing", oldManStanding);
 
             Players.OldMan.CurrentAnimationName = "standing";
@@ -128,10 +128,23 @@ namespace TheLeash
                 X = 0;
                 velocity.X = 0;
             }
-            else if (X + Bounds.Width > 1080)
+
+            if (X + Bounds.Width > 1080)
             {
                 X = 1080 - Bounds.Width;
                 velocity.X = 0;
+            }
+
+            if (Y < 0)
+            {
+                Y = 0;
+                velocity.Y = 0;
+            }
+
+            if (Y + Bounds.Height > 720)
+            {
+                Y = 720 - Bounds.Height;
+                velocity.Y = 0;
             }
 
             X += velocity.X * (float) (gameTime.ElapsedGameTime.Milliseconds / 200f);
