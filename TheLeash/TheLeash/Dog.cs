@@ -192,6 +192,13 @@ namespace TheLeash
 
         private void Bark()
         {
+            Vector2 toOldMan = new Vector2(Players.OldMan.X - X, -1 * (Players.OldMan.Y - Y));
+            float distanceToOldMan = toOldMan.Length();
+
+            SoundEffectInstance bark = barkSound.CreateInstance();
+            bark.Apply3D(Players.OldMan.AudioListener, emitter);
+            bark.Play();
+
             Console.WriteLine("Bark!");
         }
 
