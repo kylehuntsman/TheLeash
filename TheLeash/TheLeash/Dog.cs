@@ -10,7 +10,7 @@ namespace TheLeash
 {
     class Dog : Player
     {
-
+        private Vector2 moveVector;
         private Vector2 velocity;
 
         public Dog(PlayerIndex index)
@@ -20,6 +20,7 @@ namespace TheLeash
             : base(index, x, y)
         {
             Speed = 20;
+            moveVector = new Vector2();
             velocity = new Vector2(0, 0);
         }
 
@@ -32,11 +33,13 @@ namespace TheLeash
         public override void Move(GameTime gameTime)
         {
             GamePadDPad dPad = GamePadState.DPad;
+            moveVector = GamePadState.ThumbSticks.Left;
             velocity.X = 0;
             velocity.Y = 0;
 
             CurrentAnimationName = "standing";
 
+            // DPad Movement
             if (dPad.Left == ButtonState.Pressed)
             {
                 velocity.X = -Speed;
@@ -56,6 +59,31 @@ namespace TheLeash
             }
 
             if (dPad.Down == ButtonState.Pressed)
+            {
+                velocity.Y = Speed;
+                CurrentAnimationName = "walking";
+            }
+
+            // Left Thumbstick 
+            if (moveVector.X > 0)
+            {
+                velocity.X = Speed;
+                CurrentAnimationName = "walking";
+            }
+
+            if (moveVector.X < 0)
+            {
+                velocity.X = -Speed;
+                CurrentAnimationName = "walking";
+            }
+
+            if (moveVector.Y > 0)
+            {
+                velocity.Y = -Speed;
+                CurrentAnimationName = "walking";
+            }
+
+            if (moveVector.Y < 0)
             {
                 velocity.Y = Speed;
                 CurrentAnimationName = "walking";
