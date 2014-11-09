@@ -115,9 +115,9 @@ namespace TheLeash
                 effect = SpriteEffects.None;
             else
                 effect = SpriteEffects.FlipHorizontally;
-            spriteBatch.Draw(animation.TextureImage,
-                new Vector2(x, y), animation.GetCurrentFrameRectangle(), 
-                Color.White, 0, new Vector2(0, 0), 1, effect, 0);
+            spriteBatch.Draw(animation.TextureImage, new Vector2(x, y), 
+                animation.GetCurrentFrameRectangle(), Color.White, 0, new Vector2(0, 0), 
+                1, effect, 0);
         } 
     }
 }
