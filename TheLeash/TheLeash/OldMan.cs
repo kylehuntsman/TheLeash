@@ -22,7 +22,7 @@ namespace TheLeash
         private Vector2 moveVector;
         private Vector2 velocity;
 
-        private Boolean hasAlerted;
+        private bool hasAlerted;
 
         public OldMan(PlayerIndex index) 
             : this(index, 0, 0) {}
@@ -42,9 +42,10 @@ namespace TheLeash
             base.Update(gameTime);
             FeelingMechanic();
             Move(gameTime);
-            ButtonPresses();
+            Actions();
         }
 
+        // Movement
         public override void Move(GameTime gameTime)
         {
             GamePadDPad dPad = GamePadState.DPad;
@@ -160,7 +161,8 @@ namespace TheLeash
             GamePad.SetVibration(PlayerIndex, (float)leftVibPercentage * 1f, (float)rightVibPercentage * 1f);
         }
 
-        private void ButtonPresses()
+        // Actions
+        private void Actions()
         {
             if (GamePadState.Buttons.RightStick == ButtonState.Pressed && hasAlerted == false)
             {

@@ -13,6 +13,9 @@ namespace TheLeash
         private Vector2 moveVector;
         private Vector2 velocity;
 
+        private bool hasBarked;
+        private bool hasGrowled;
+
         public Dog(PlayerIndex index)
             : this(index, 0, 0) {}
 
@@ -22,14 +25,19 @@ namespace TheLeash
             Speed = 20;
             moveVector = new Vector2();
             velocity = new Vector2(0, 0);
+
+            hasBarked = false;
+            hasGrowled = false;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             Move(gameTime);
+            Actions();
         }
 
+        // Movement
         public override void Move(GameTime gameTime)
         {
             GamePadDPad dPad = GamePadState.DPad;
@@ -91,6 +99,42 @@ namespace TheLeash
 
             X += velocity.X * (float)(gameTime.ElapsedGameTime.Milliseconds / 200f);
             Y += velocity.Y * (float)(gameTime.ElapsedGameTime.Milliseconds / 200f);
+        }
+
+        // Actions
+        private void Actions()
+        {
+            if (GamePadState.Buttons.A == ButtonState.Pressed && hasBarked == false)
+            {
+                Bark();
+                hasBarked = true;
+            }
+
+            if (GamePadState.Buttons.B == ButtonState.Pressed && hasGrowled == false)
+            {
+                Growl();
+                hasGrowled = true;
+            }
+
+            if (GamePadState.Buttons.A == ButtonState.Released)
+            {
+                hasBarked = false;
+            }
+
+            if (GamePadState.Buttons.B == ButtonState.Released)
+            {
+                hasGrowled = false;
+            }
+        }
+
+        private void Bark()
+        {
+            Console.WriteLine("Bark!");
+        }
+
+        private void Growl()
+        {
+            Console.WriteLine("Grrrrrrrr!");
         }
 
         public override void Hit()
