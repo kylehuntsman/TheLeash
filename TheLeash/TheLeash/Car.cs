@@ -12,6 +12,7 @@ namespace TheLeash
         private float x, y;
         private float speed;
         private Animation animation;
+        private Rectangle bounds;
 
         public float X
         {
@@ -31,6 +32,12 @@ namespace TheLeash
             set { this.speed = value; }
         }
 
+        public Rectangle Bounds
+        {
+            get;
+            set;
+        }
+
         public Car(Animation animation, float x, float y, float speed) 
         {
             this.x = x;
@@ -41,6 +48,7 @@ namespace TheLeash
 
         public virtual void Update(GameTime gameTime)
         {
+            x += speed * (float)(gameTime.ElapsedGameTime.Milliseconds / 200f);
             animation.Update(gameTime);
         }
 

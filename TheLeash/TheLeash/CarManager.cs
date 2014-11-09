@@ -11,19 +11,30 @@ namespace TheLeash
     class CarManager
     {
         private List<Car> cars;
+        private List<Car> removedCars;
         private List<Animation> animations;
         private List<Point> spawnLocations;
+        private Random random = new Random();
+        private Rectangle screenBounds;
 
-        public CarManager()
+        public CarManager(Game game)
         {
             cars = new List<Car>();
+            removedCars = new List<Car>();
             animations = new List<Animation>();
             spawnLocations = new List<Point>();
+
+            Point spawnA = new Point(0, 301);
+            Point spawnB = new Point(300, 300);
+            spawnLocations.Add(spawnA);
+            spawnLocations.Add(spawnB);
         }
 
         public virtual void LoadContent(ContentManager content)
         {
-            
+            Animation carAnim = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestCar_Anim"),
+               new Point(32, 32), new Point(0, 0), new Point(1, 2), 600);
+            animations.Add(carAnim);
         }
 
         public virtual void Update(GameTime gameTime)
@@ -31,6 +42,14 @@ namespace TheLeash
             foreach (Car car in this.cars)
             {
                 car.Update(gameTime);
+                if (car.X < 0 || car.X > 1080)
+                {
+                    removedCars.Add(car);
+                }
+            }
+            foreach (Car car in this.removedCars)
+            {
+                cars.Remove(car);
             }
         }
 
@@ -54,9 +73,8 @@ namespace TheLeash
 
         private Car GenerateCar()
         {
-            Random random = new Random();
-            int animationIndex = random.Next(0, animations.Count - 1);
-            int spawnIndex = random.Next(0, spawnLocations.Count - 1);
+            int animationIndex = random.Next(0, animations.Count);
+            int spawnIndex = random.Next(0, spawnLocations.Count);
             float speed = (float)random.Next(10, 30);
             if (spawnLocations[spawnIndex].X <= 0)
             {

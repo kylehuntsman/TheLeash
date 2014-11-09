@@ -26,10 +26,12 @@ namespace TheLeash
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        CarManager carManager;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            carManager = new CarManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -44,6 +46,7 @@ namespace TheLeash
         {
             InitializePlayers();
             base.Initialize();
+            carManager.AddCar(3);
         }
         #endregion
 
@@ -62,6 +65,7 @@ namespace TheLeash
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            carManager.LoadContent(Content);
             LoadOldMan();
             LoadDog();
         }
@@ -116,7 +120,7 @@ namespace TheLeash
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            carManager.Update(gameTime);
 
             base.Update(gameTime);
             Players.OldMan.Update(gameTime);
@@ -136,6 +140,7 @@ namespace TheLeash
             spriteBatch.Begin();
             Players.OldMan.Draw(gameTime, spriteBatch);
             Players.Dog.Draw(gameTime, spriteBatch);
+            carManager.Draw(gameTime, spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
