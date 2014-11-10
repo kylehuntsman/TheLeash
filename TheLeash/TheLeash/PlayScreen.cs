@@ -12,18 +12,22 @@ namespace TheLeash
 {
     class PlayScreen : GameScreen
     {
+        Game game;
         KeyboardState keyboardState;
         Texture2D image;
         CarManager carManager;
         SoundEffect bgSound;
         SoundEffectInstance bgSoundInstance;
+        Rectangle winZone;
 
         public PlayScreen(Game game, SpriteBatch spriteBatch)
             : base(game, spriteBatch)
         {
+            this.game = game;
             carManager = new CarManager();
             Players.OldMan = new OldMan(PlayerIndex.One, 540, 600);
             Players.Dog = new Dog(PlayerIndex.Two, 540, 700);
+            winZone = new Rectangle(0, 0, 1080, 20);
         }
 
         public override void LoadContent(ContentManager content)
@@ -55,6 +59,11 @@ namespace TheLeash
 
             Players.OldMan.Update(gameTime);
             Players.Dog.Update(gameTime);
+
+            if (winZone.Intersects(Players.OldMan.Bounds))
+            {
+                game.ActiveScreen = game.StartScreen;
+            }
         }
 
         public override void Draw(GameTime gameTime)

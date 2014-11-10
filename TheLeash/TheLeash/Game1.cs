@@ -38,6 +38,22 @@ namespace TheLeash
         CreditScreen creditScreen;
         PlayScreen playScreen;
 
+        public GameScreen ActiveScreen
+        {
+            get { return activeScreen; }
+            set
+            {
+                activeScreen.Hide();
+                activeScreen = value;
+                activeScreen.Show();
+            }
+        }
+
+        public StartScreen StartScreen
+        {
+            get { return startScreen; }
+        }
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
