@@ -35,13 +35,14 @@ namespace TheLeash
             : base(index, x, y)
         {
             Speed = 20;
+            Scale = 2;
             moveVector = new Vector2();
             velocity = new Vector2(0, 0);
 
             hasBarked = false;
             hasGrowled = false;
 
-            Bounds = new Rectangle((int)X, (int)Y + 9, 26, 9);
+            Bounds = new Rectangle((int)X, (int)Y + (int)(8 + Scale), (int)(10 + Scale), (int)(8 * Scale));
 
             emitter = new AudioEmitter();
         }
@@ -119,6 +120,7 @@ namespace TheLeash
                 velocity.Y = -Speed;
                 CurrentAnimationName = "walkingBack";
                 Direction = "Back";
+                Bounds = new Rectangle((int)X, (int)Y + (int)(8 + Scale), (int)(10 + Scale), (int)(8 * Scale));
             }
 
             if (dPad.Down == ButtonState.Pressed)
@@ -126,6 +128,7 @@ namespace TheLeash
                 velocity.Y = Speed;
                 CurrentAnimationName = "walkingFront";
                 Direction = "Front";
+                Bounds = new Rectangle((int)X, (int)Y + (int)(8 + Scale), (int)(10 + Scale), (int)(8 * Scale));
             }
 
             if (dPad.Left == ButtonState.Pressed)
@@ -133,6 +136,7 @@ namespace TheLeash
                 velocity.X = -Speed;
                 CurrentAnimationName = "walkingLeft";
                 Direction = "Left";
+                Bounds = new Rectangle((int)X, (int)Y + (int)(8 + Scale), (int)(24 + Scale), (int)(8 * Scale));
             }
 
             if (dPad.Right == ButtonState.Pressed)
@@ -140,6 +144,7 @@ namespace TheLeash
                 velocity.X = Speed;
                 CurrentAnimationName = "walkingRight";
                 Direction = "Right";
+                Bounds = new Rectangle((int)X, (int)Y + (int)(8 + Scale), (int)(24 + Scale), (int)(8 * Scale));
             }
 
             // Left Thumbstick 
@@ -148,6 +153,7 @@ namespace TheLeash
                 velocity.Y = -Speed;
                 CurrentAnimationName = "walkingBack";
                 Direction = "Back";
+                Bounds = new Rectangle((int)X, (int)Y + (int)(8 + Scale), (int)(10 + Scale), (int)(8 * Scale));
             }
 
             if (moveVector.Y < 0)
@@ -155,6 +161,7 @@ namespace TheLeash
                 velocity.Y = Speed;
                 CurrentAnimationName = "walkingFront";
                 Direction = "Front";
+                Bounds = new Rectangle((int)X, (int)Y + (int)(8 + Scale), (int)(10 + Scale), (int)(8 * Scale));
             }
 
             if (moveVector.X > 0)
@@ -162,6 +169,7 @@ namespace TheLeash
                 velocity.X = Speed;
                 CurrentAnimationName = "walkingRight";
                 Direction = "Right";
+                Bounds = new Rectangle((int)X, (int)Y + (int)(8 + Scale), (int)(24 + Scale), (int)(8 * Scale));
             }
 
             if (moveVector.X < 0)
@@ -169,6 +177,7 @@ namespace TheLeash
                 velocity.X = -Speed;
                 CurrentAnimationName = "walkingLeft";
                 Direction = "Left";
+                Bounds = new Rectangle((int)X, (int)Y + (int)(8 + Scale), (int)(24 + Scale), (int)(8 * Scale));
             }
 
             if (X < 0)

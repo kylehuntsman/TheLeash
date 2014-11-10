@@ -18,6 +18,7 @@ namespace TheLeash
         private string currentAnimationName;
         private string direction;
         private Rectangle bounds;
+        private float scale;
 
         private PlayerIndex playerIndex;
         private GamePadState gamePadState;
@@ -74,6 +75,12 @@ namespace TheLeash
             set { bounds = value; }
         }
 
+        public float Scale
+        {
+            get { return scale; }
+            set { scale = value; }
+        }
+
         public Player(PlayerIndex index)
             :this(index, 0,0)
         {
@@ -117,8 +124,11 @@ namespace TheLeash
             if (animations.Keys.Contains(currentAnimationName))
             {
                 Animation currentAnimation = animations[currentAnimationName];
-                spriteBatch.Draw(currentAnimation.TextureImage, new Vector2(x,y),
-                    currentAnimation.GetCurrentFrameRectangle(), Color.White);
+                /*spriteBatch.Draw(currentAnimation.TextureImage, new Vector2(x,y),
+                    currentAnimation.GetCurrentFrameRectangle(), Color.White);*/
+                spriteBatch.Draw(currentAnimation.TextureImage, new Vector2(x, y),
+                currentAnimation.GetCurrentFrameRectangle(), Color.White, 0, new Vector2(0, 0),
+                scale, SpriteEffects.None, 0);
             }
         }
 

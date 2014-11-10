@@ -41,12 +41,13 @@ namespace TheLeash
             : base(index, x, y)
         {
             Speed = 10;
+            Scale = 2;
             feelVector = new Vector2();
             moveVector = new Vector2();
             velocity = new Vector2(0, 0);
             hasAlerted = false;
 
-            Bounds = new Rectangle((int)X, (int)Y + 16, 19, 16);
+            Bounds = new Rectangle((int)X, (int)Y + (int)(16 * Scale), (int)(14 * Scale), (int)(16 * Scale));
 
             audioListener = new AudioListener();
         }
@@ -203,7 +204,7 @@ namespace TheLeash
             X += velocity.X * (float) (gameTime.ElapsedGameTime.Milliseconds / 200f);
             Y += velocity.Y * (float) (gameTime.ElapsedGameTime.Milliseconds / 200f);
 
-            Bounds = new Rectangle((int)X, (int)Y + 16, 19, 16);
+            Bounds = new Rectangle((int)X, (int)Y + (int)(16 * Scale), (int)(14 * Scale), (int)(16 * Scale));
             audioListener.Position = new Vector3(X / 8f, 0, Y / 8f);
         }
 
@@ -215,7 +216,7 @@ namespace TheLeash
                 return;
             }
 
-            Vector2 toDog = new Vector2(Players.Dog.X - X, -1 * (Players.Dog.Y - Y));
+            Vector2 toDog = new Vector2((Players.Dog.X + (Players.Dog.Bounds.Width / 2)) - (X + (Bounds.Width / 2)), -1 * ((Players.Dog.Y + (Players.Dog.Bounds.Height / 2)) - (Y + (Bounds.Height / 2))));
             float distanceToDog = toDog.Length();
             toDog.Normalize();
 
@@ -242,13 +243,13 @@ namespace TheLeash
                 }
             }
 
-            if (rightVibPercentage > MIN_PERCENT_FOR_LEFT_VIB && distanceToDog <= MAX_DOG_DISTANCE)
+            if (rightVibPercentage > MIN_PERCENT_FOR_LEFT_VIB && distanceToDog <= MAX_DOG_DISTANCE * Scale)
             {
                 leftVibPercentage = rightVibPercentage;
             }
-            else if (distanceToDog > MAX_DOG_DISTANCE)
+            else if (distanceToDog > MAX_DOG_DISTANCE * Scale)
             {
-                double outerDist = distanceToDog - MAX_DOG_DISTANCE;
+                double outerDist = distanceToDog - MAX_DOG_DISTANCE * Scale;
                 leftVibPercentage = 0d;
                 rightVibPercentage -= outerDist * RIGHT_VIB_PENALTY;
 

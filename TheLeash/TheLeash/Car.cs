@@ -74,7 +74,7 @@ namespace TheLeash
             this.speed = speed;
             this.animation = animation;
 
-            bounds = new Rectangle((int)X, (int)Y + animation.FrameSize.Y / 2, (int)animation.FrameSize.X, animation.FrameSize.Y / 2);
+            bounds = new Rectangle((int)X, (int)Y + animation.FrameSize.Y /2, (int)animation.FrameSize.X, animation.FrameSize.Y / 2);
 
             emitter = new AudioEmitter();
         }

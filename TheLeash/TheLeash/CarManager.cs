@@ -42,9 +42,9 @@ namespace TheLeash
 
         public virtual void LoadContent(ContentManager content)
         {
-            Animation carAnim = new Animation(content.Load<Texture2D>(@"Images/TestImages/TestCar_Anim"),
-               new Point(31, 25), new Point(0, 0), new Point(1, 2), 600);
-            animations.Add(carAnim);
+            Animation carOne = new Animation(content.Load<Texture2D>(@"Images/Cars/car_sheet"),
+               new Point(128, 40), new Point(0, 0), new Point(2, 1), 600);
+            animations.Add(carOne);
 
             soundEffects.Add(content.Load<SoundEffect>(@"Audio/carSound1"));
             //soundEffects.Add(content.Load<SoundEffect>(@"Audio/carSound2"));

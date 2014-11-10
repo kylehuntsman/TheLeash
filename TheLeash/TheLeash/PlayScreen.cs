@@ -62,8 +62,8 @@ namespace TheLeash
             spriteBatch.Draw(image, new Vector2(0,-720), Color.White);
             base.Draw(gameTime);
 
-            carManager.Draw(gameTime, spriteBatch);
             DrawPlayers(gameTime, spriteBatch);
+            carManager.Draw(gameTime, spriteBatch);
         }
 
         private void DrawPlayers(GameTime gameTime, SpriteBatch spriteBatch)
