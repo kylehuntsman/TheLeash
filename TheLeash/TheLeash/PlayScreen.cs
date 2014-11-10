@@ -59,7 +59,7 @@ namespace TheLeash
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(image, new Vector2(0,-720), Color.White);
+            spriteBatch.Draw(image, new Vector2(0,0), Color.White);
             base.Draw(gameTime);
 
             DrawPlayers(gameTime, spriteBatch);

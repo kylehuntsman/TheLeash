@@ -85,7 +85,10 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera2D.cs" />
     <Compile Include="CreditScreen.cs" />
+    <Compile Include="ICamera2D.cs" />
+    <Compile Include="IFocusable.cs" />
     <Compile Include="InfoScreen.cs" />
     <Compile Include="PlayScreen.cs" />
     <Compile Include="Car.cs" />
