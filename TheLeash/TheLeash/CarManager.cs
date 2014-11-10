@@ -28,16 +28,22 @@ namespace TheLeash
             spawnLocations = new List<Point>();
             soundEffects = new List<SoundEffect>();
 
-            Point spawnA = new Point(0, 301);
-            Point spawnB = new Point(1080, 500);
-            Point spawnC = new Point(1080, 200);
-            Point spawnD = new Point(0, 700);
-            Point spawnE = new Point(0, 100);
-            spawnLocations.Add(spawnA);
-            spawnLocations.Add(spawnB);
-            spawnLocations.Add(spawnC);
-            spawnLocations.Add(spawnD);
-            spawnLocations.Add(spawnE);
+            Point spawn1 = new Point(-130, 280);
+            Point spawn2 = new Point(-130, 355);
+            Point spawn3 = new Point(-130, 430);
+            Point spawn4 = new Point(-130, 490);
+            Point spawn5 = new Point(1210, 580);
+            Point spawn6 = new Point(1210, 680);
+            Point spawn7 = new Point(1210, 780);
+            Point spawn8 = new Point(1210, 855);
+            spawnLocations.Add(spawn1);
+            spawnLocations.Add(spawn2);
+            spawnLocations.Add(spawn3);
+            spawnLocations.Add(spawn4);
+            spawnLocations.Add(spawn5);
+            spawnLocations.Add(spawn6);
+            spawnLocations.Add(spawn7);
+            spawnLocations.Add(spawn8);
         }
 
         public virtual void LoadContent(ContentManager content)
@@ -56,7 +62,7 @@ namespace TheLeash
             foreach (Car car in this.cars)
             {
                 car.Update(gameTime);
-                if (car.X + car.Bounds.Width < 0 || car.X > 1080)
+                if (car.X  < -300 || car.X > 1300)
                 {
                     removedCars.Add(car);
                 }

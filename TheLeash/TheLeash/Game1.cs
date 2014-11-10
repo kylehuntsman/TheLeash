@@ -58,7 +58,7 @@ namespace TheLeash
         {
             graphics = new GraphicsDeviceManager(this);
             TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 16);
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferHeight = 1000;
             graphics.PreferredBackBufferWidth = 1080;
             Content.RootDirectory = "Content";
             Console.WriteLine("Loading Content from the game");
