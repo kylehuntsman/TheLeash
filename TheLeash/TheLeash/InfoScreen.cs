@@ -8,13 +8,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TheLeash
 {
-    class InfoScreen : GameScreen
+    public class InfoScreen : GameScreen
     {
         KeyboardState keyboardState;
         Texture2D image;
         Rectangle imageRectangle;
 
-        public InfoScreen(Game game, SpriteBatch spriteBatch, Texture2D image)
+        public InfoScreen(Game1 game, SpriteBatch spriteBatch, Texture2D image)
             : base(game, spriteBatch)
         {
             this.image = image;

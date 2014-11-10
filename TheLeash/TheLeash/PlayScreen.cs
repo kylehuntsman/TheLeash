@@ -10,9 +10,9 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace TheLeash
 {
-    class PlayScreen : GameScreen
+    public class PlayScreen : GameScreen
     {
-        Game game;
+        Game1 game;
         KeyboardState keyboardState;
         Texture2D image;
         CarManager carManager;
@@ -20,14 +20,14 @@ namespace TheLeash
         SoundEffectInstance bgSoundInstance;
         Rectangle winZone;
 
-        public PlayScreen(Game game, SpriteBatch spriteBatch)
+        public PlayScreen(Game1 game, SpriteBatch spriteBatch)
             : base(game, spriteBatch)
         {
             this.game = game;
             carManager = new CarManager();
-            Players.OldMan = new OldMan(PlayerIndex.One, 540, 600);
-            Players.Dog = new Dog(PlayerIndex.Two, 540, 700);
-            winZone = new Rectangle(0, 0, 1080, 20);
+            Players.OldMan = new OldMan(PlayerIndex.One, 540, 650);
+            Players.Dog = new Dog(PlayerIndex.Two, 560, 670);
+            winZone = new Rectangle(460, 100, 60, 40);
         }
 
         public override void LoadContent(ContentManager content)
@@ -61,7 +61,7 @@ namespace TheLeash
             Players.Dog.Update(gameTime);
 
             if (winZone.Intersects(Players.OldMan.Bounds))
-            {
+            {    
                 game.ActiveScreen = game.StartScreen;
             }
         }

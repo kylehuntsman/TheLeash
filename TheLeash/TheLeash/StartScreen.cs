@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheLeash
 {
-    class StartScreen : GameScreen
+    public class StartScreen : GameScreen
     {
         MenuComponent menuComponent;
         Texture2D image;
@@ -20,7 +20,7 @@ namespace TheLeash
             set { menuComponent.SelectedIndex = value; }
         }
 
-        public StartScreen(Game game,
+        public StartScreen(Game1 game,
             SpriteBatch spriteBatch,
             SpriteFont spriteFont,
             Texture2D image)

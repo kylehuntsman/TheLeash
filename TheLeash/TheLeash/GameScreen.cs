@@ -15,7 +15,7 @@ namespace TheLeash
     public abstract class GameScreen : Microsoft.Xna.Framework.DrawableGameComponent
     {
         List<GameComponent> components = new List<GameComponent>();
-        protected Game game;
+        protected Game1 game;
         protected SpriteBatch spriteBatch;
 
         public List<GameComponent> Components
@@ -23,7 +23,7 @@ namespace TheLeash
             get { return components; }
         }
 
-        public GameScreen(Game game, SpriteBatch spriteBatch)
+        public GameScreen(Game1 game, SpriteBatch spriteBatch)
             : base(game)
         {
             this.game = game;

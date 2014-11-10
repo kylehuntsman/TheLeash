@@ -294,14 +294,13 @@ namespace TheLeash
                 dying.Play();
 
                 Console.WriteLine("The old man has died!");
-                CurrentAnimationName = "standing";
-                Alive = false;
+                CurrentAnimationName = "standingFront";
+                //Alive = false;
+                X = 540;
+                Y = 650;
+                Players.Dog.X = 560;
+                Players.Dog.Y = 670;
             }
-        }
-
-        public void Win()
-        {
-
         }
 
         private double GetDirection(Vector2 vector)
