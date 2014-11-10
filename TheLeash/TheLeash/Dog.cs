@@ -198,9 +198,9 @@ namespace TheLeash
                 velocity.Y = 0;
             }
 
-            if (Y + Bounds.Height > 720)
+            if (Y + Bounds.Height > 1000)
             {
-                Y = 720 - Bounds.Height;
+                Y = 1000 - Bounds.Height;
                 velocity.Y = 0;
             }
 

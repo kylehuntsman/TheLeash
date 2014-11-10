@@ -25,8 +25,8 @@ namespace TheLeash
         {
             this.game = game;
             carManager = new CarManager();
-            Players.OldMan = new OldMan(PlayerIndex.One, 540, 650);
-            Players.Dog = new Dog(PlayerIndex.Two, 560, 670);
+            Players.OldMan = new OldMan(PlayerIndex.One, 540, 900);
+            Players.Dog = new Dog(PlayerIndex.Two, 570, 920);
             winZone = new Rectangle(460, 100, 60, 40);
         }
 

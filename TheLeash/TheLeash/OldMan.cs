@@ -195,9 +195,9 @@ namespace TheLeash
                 velocity.Y = 0;
             }
 
-            if (Y + Bounds.Height > 720)
+            if (Y + Bounds.Height > 1000)
             {
-                Y = 720 - Bounds.Height;
+                Y = 1000 - Bounds.Height;
                 velocity.Y = 0;
             }
 
@@ -297,9 +297,9 @@ namespace TheLeash
                 CurrentAnimationName = "standingFront";
                 //Alive = false;
                 X = 540;
-                Y = 650;
-                Players.Dog.X = 560;
-                Players.Dog.Y = 670;
+                Y = 900;
+                Players.Dog.X = 570;
+                Players.Dog.Y = 920;
             }
         }
 
