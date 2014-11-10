@@ -299,6 +299,11 @@ namespace TheLeash
             }
         }
 
+        public void Win()
+        {
+
+        }
+
         private double GetDirection(Vector2 vector)
         {
             double degrees = 0;
